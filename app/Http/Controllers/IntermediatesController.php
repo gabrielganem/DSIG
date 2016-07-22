@@ -66,8 +66,24 @@ class IntermediatesController extends Controller
         //Project::create($project);
         $project->save();
 
-        Session::flash('flash_message', 'Projeto Atualizado!');
+        Session::flash('flash_message', 'Projeto Adicionado com Sucesso!');
 
-        return redirect()->back();
+        IntermediatesController::dunno($request, $project);
+
+        $project = Project::all();
+
+        return view('projects.index')->withProjects($project);
     }
+
+  public function dunno(Array $params, Projeto $p){      
+      foreach ($params as $key => $value) {
+       // if(strstr($key,'-')){
+          //$etiqueta = Etiqueta::where('id','=',$value)->get();
+          $etiqueta[0]->
+          $etiqueta[0]->projetos()->attach($p);
+        }
+     // }
+    return;
+  }
+
 }

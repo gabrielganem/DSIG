@@ -28,3 +28,8 @@ Route::post('/intermediate/atualiza/{id}',[
     'as' => 'intermediate.atualiza',
     'uses' => 'IntermediatesController@atualiza'
 ]);
+
+Route::post('/intermediate/adiciona',[
+    'as' => 'intermediate.adiciona',
+    'uses' => 'IntermediatesController@adiciona'
+]);

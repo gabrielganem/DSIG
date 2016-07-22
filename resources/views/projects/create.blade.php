@@ -11,14 +11,14 @@
 
 {!! Form::open
     (array
-        ('route' => array('intermediate.adiciona', $projects->id), 
+        ('route' => 'intermediate.adiciona', 
          'method' => 'post' )
     ) 
 !!}
 
 <div class="form-group">
-    {!! Form::label('title', 'Título:', ['class' => 'control-label']) !!}
-    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+    {!! Form::label('titulo', 'Título:', ['class' => 'control-label']) !!}
+    {!! Form::text('titulo', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
