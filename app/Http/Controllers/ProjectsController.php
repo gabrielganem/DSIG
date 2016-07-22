@@ -14,6 +14,8 @@ use App\Label;
 
 use Session;
 
+use App\Intermediate;
+
 class ProjectsController extends Controller
 {
     /**
@@ -35,7 +37,9 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+      $label = Label::all();
+
+        return view('projects.create')->withLabels($label);
 
     }
 
@@ -108,10 +112,15 @@ class ProjectsController extends Controller
             'institute' => 'required',
             'department' => 'required'
         ]);
+        //$p = new Project();
+        $project->title = $request->title;
+        $project->description = $request->description;
+        $project->institute = $request->institute;
+        $project->department = $request->department;
 
-        $input = $request->all();
+        //$input = $request->all();
 
-        $project->fill($input)->save();
+        $project->save();
 
         Session::flash('flash_message', 'Projeto Atualizado!');
 

@@ -8,9 +8,13 @@
 
 @include('partials.alerts.errors')
 
-{!! Form::open([
-    'route' => 'projects.store'
-]) !!}
+
+{!! Form::open
+    (array
+        ('route' => array('intermediate.adiciona', $projects->id), 
+         'method' => 'post' )
+    ) 
+!!}
 
 <div class="form-group">
     {!! Form::label('title', 'Título:', ['class' => 'control-label']) !!}

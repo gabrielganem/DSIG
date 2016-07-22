@@ -21,3 +21,10 @@ Route::resource('label_project', 'LabelProjectController');
 
 Route::resource('labels', 'LabelsController');
 Route::resource('samples', 'SamplesController');
+
+Route::controller('intermediate', 'IntermediatesController');
+
+Route::post('/intermediate/atualiza/{id}',[
+    'as' => 'intermediate.atualiza',
+    'uses' => 'IntermediatesController@atualiza'
+]);
