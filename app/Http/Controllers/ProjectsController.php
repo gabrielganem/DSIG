@@ -3,18 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use App\Project;
-
 use App\Sample;
-
 use App\Label;
-
-use Session;
-
 use App\Intermediate;
+use Session;
 
 class ProjectsController extends Controller
 {

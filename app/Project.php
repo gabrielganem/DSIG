@@ -17,6 +17,6 @@ class Project extends Model
 
     public function labels()
     {
-        return $this->belongsToMany(Labels::class);
+        return $this->belongsToMany(Label::class);
     }
 }

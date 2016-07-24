@@ -8,36 +8,51 @@
 
 @include('partials.alerts.errors')
 
-
-{!! Form::open
-    (array
-        ('route' => 'intermediate.adiciona', 
-         'method' => 'post' )
-    ) 
-!!}
-
+<form action="/intermediate/adiciona" class="form-horizontal" method="POST">
+<fieldset>
+<!-- Form Name -->
+<legend>Novo Projeto</legend>
+<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+<!-- Text input-->
 <div class="form-group">
-    {!! Form::label('titulo', 'Título:', ['class' => 'control-label']) !!}
-    {!! Form::text('titulo', null, ['class' => 'form-control']) !!}
+  <label for="title">Título</label>
+    <input id="title" name="title" type="text" placeholder="Nome do Projeto" class="form-control">
 </div>
 
 <div class="form-group">
-    {!! Form::label('description', 'Descrição:', ['class' => 'control-label']) !!}
-    {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+  <label for="description">Descrição</label>
+    <input id="description" name="description" type="text" placeholder="Descrição" class="form-control input-md">
+  </div>
+
+<div class="form-group">
+  <label for="institute">Instituição</label>
+    <input id="institute" name="institute" type="text" placeholder="Instituição" class="form-control">
 </div>
 
 <div class="form-group">
-    {!! Form::label('institute', 'Instituição:', ['class' => 'control-label']) !!}
-    {!! Form::text('institute', null, ['class' => 'form-control']) !!}
+  <labelfor="department">Departamento</label>
+    <input id="department" name="department" type="text" placeholder="Departamento" class="form-control">
 </div>
 
+<!-- Multiple Checkboxes -->
 <div class="form-group">
-    {!! Form::label('department', 'Departamento:', ['class' => 'control-label']) !!}
-    {!! Form::text('department', null, ['class' => 'form-control']) !!}
+  <label for="etiqueta">Etiquetas</label>
+    @foreach($labels->all() as $label)
+      <div class="checkbox">
+        <label for="label-{{$label->id}}">
+          <input type="checkbox" name="label-{{$label->id}}" id="label-{{$label->id}}" value="{{$label->id}}">
+          {{$label->title}} || {{$label->unity}}
+        </label>
+      </div>
+    @endforeach
 </div>
 
-{!! Form::submit('Criar Novo Projeto', ['class' => 'btn btn-primary']) !!}
+<!-- Button -->
+<div class="form-group">
+  <label for="btn"></label>
+    <button type="submit"  id="btn" name="btn" class="btn btn-primary">Criar Projeto</button>
+</div>
 
-{!! Form::close() !!}
-
+</fieldset>
+</form>
 @stop
