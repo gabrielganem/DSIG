@@ -17,7 +17,6 @@ Route::get('/', [
 ]);
 
 Route::resource('projects', 'ProjectsController');
-Route::resource('label_project', 'LabelProjectController');
 
 Route::resource('labels', 'LabelsController');
 Route::resource('samples', 'SamplesController');
