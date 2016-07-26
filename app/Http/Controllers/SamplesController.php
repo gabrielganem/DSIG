@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Project;
+use App\Sample;
+use App\Label;
+use App\Intermediate;
+
 class SamplesController extends Controller
 {
     /**
