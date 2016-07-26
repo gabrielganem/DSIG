@@ -19,4 +19,9 @@ class Project extends Model
     {
         return $this->belongsToMany(Label::class);
     }
+
+    public function samples()
+    {
+      return $this->hasMany(Sample::class);
+    }
 }

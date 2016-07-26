@@ -8,7 +8,7 @@
 
 @foreach($projects as $project)
     <h3>{{ $project->title }}</h3>
-    <p>{{ $project->description}}</p>
+
     <p>
         <a href="{{ route('projects.show', $project->id) }}" class="btn btn-info">Ver Projeto</a>
         <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary">Editar Projeto</a>

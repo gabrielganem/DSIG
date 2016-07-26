@@ -9,6 +9,7 @@
 @include('partials.alerts.errors')
 
 <form action="/intermediate/adiciona" class="form-horizontal" method="POST">
+
 <fieldset>
 <!-- Form Name -->
 <legend>Novo Projeto</legend>
@@ -52,7 +53,6 @@
   <label for="btn"></label>
     <button type="submit"  id="btn" name="btn" class="btn btn-primary">Criar Projeto</button>
 </div>
-
 </fieldset>
 </form>
 @stop

@@ -15,7 +15,10 @@ class SamplesController extends Controller
      */
     public function index()
     {
+        $sample = Sample::all();
+        $project = Project::all();
 
+      return view('samples.index')->withSamples($sample)->withProjects($project);
     }
 
     /**
