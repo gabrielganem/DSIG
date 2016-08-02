@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
-use App\Models\Project;
+//use App\Models\Project;
 
 class Sample extends Model
 {

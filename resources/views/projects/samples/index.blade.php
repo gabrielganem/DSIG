@@ -9,7 +9,7 @@
 <hr>
 
 @foreach($samples as $sample)
-    <h3>{{ $sample->date }}</h3>
+    <h3>{{ $sample->geom }}</h3>
 
     <p>
         <a href="{{ route('samples.show', $sample->id) }}" class="btn btn-info">Ver Amostra</a>
