@@ -33,10 +33,7 @@ Route::post('/intermediate/adiciona',[
     'uses' => 'IntermediatesController@adiciona'
 ]);
 
-Route::get('/projetos/{id}/samples/', function($id)
-{
-  $project = App\Project::where('id', $id)->firstOrFail();
-  $sample = App\Sample::all();
-
-  return View::make('projects.samples.show')->withProjects($project)->withSamples($sample);
-});
+Route::get('/projects/{id}/samples/',[
+  'as' => ' project.amostras',
+  'uses' => 'ProjectsController@getAmostras'
+]);

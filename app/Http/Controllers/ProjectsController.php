@@ -137,4 +137,12 @@ class ProjectsController extends Controller
 
         return redirect()->route('projects.index');
     }
+
+    public function getAmostras($id)
+    {
+      $project = Project::where('id', $id)->firstOrFail();
+      $sample = Sample::all();
+
+      return view('projects.samples.show')->withProjects($project)->withSamples($sample);
+    }
 }
