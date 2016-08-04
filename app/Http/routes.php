@@ -34,6 +34,6 @@ Route::post('/intermediate/adiciona',[
 ]);
 
 Route::get('/projects/{id}/samples/',[
-  'as' => ' project.amostras',
+  'as' => 'project.amostras',
   'uses' => 'ProjectsController@getAmostras'
 ]);

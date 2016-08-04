@@ -36,6 +36,6 @@
 
 		{!! Form::close() !!}
 
- <a href="#" class="btn btn-primary">Adicionar Campo</a>   
+ <a href="{{ route('project.amostras', $projects->id) }}" class="btn btn-primary">Exibe Amostras</a>   
 
 @stop
