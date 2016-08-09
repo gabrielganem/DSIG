@@ -9,6 +9,7 @@ use App\Sample;
 use App\Label;
 use App\Intermediate;
 use Session;
+use DB;
 
 class ProjectsController extends Controller
 {
@@ -141,7 +142,10 @@ class ProjectsController extends Controller
     public function getAmostras($id)
     {
       $project = Project::where('id', $id)->firstOrFail();
-      $sample = Sample::all();
+      $sample = DB::table('samples')
+      ->select(DB::raw('ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+      ->where('project_id', $id)
+      ->get();
 
       return view('projects.samples.show')->withProjects($project)->withSamples($sample);
     }

@@ -5,10 +5,16 @@
 <h1>{{ $projects->title }}</h1>
 <br />
 
-@foreach($projects->samples as $sample)
+@foreach($samples as $sample)
 <div>
+    <h3>
+      {{$sample->date}}
+    </h3>
     <p>
-      {{$sample->date}} || {{$sample->geom}}
+      Latitude: {{$sample->lat}}
+    </p>
+    <p>
+      Longitude: {{$sample->lng}}
     </p>
   </div>
 @endforeach

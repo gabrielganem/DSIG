@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\belongsTo;
 class Sample extends Model
 {
     protected $fillable = [
-        'label_id',
         'project_id',
         'date',
+        'geom',
     ];
 
     public function projects ()
