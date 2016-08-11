@@ -24,18 +24,6 @@
         {!! Form::close() !!}
     </div>
 
-
- 		 {!! Form::open([
-		    'route' => 'labels.store'
-		]) !!}
-
-		<div class="form-group">
-		    {!! Form::label('title', 'Título:', ['class' => 'control-label']) !!}
-		    {!! Form::select('title', $labels, ['class' => 'form-control']) !!}
-		</div>
-
-		{!! Form::close() !!}
-
- <a href="{{ route('project.amostras', $projects->id) }}" class="btn btn-primary">Exibe Amostras</a>   
+ <a href="{{ route('project.amostras', $projects->id) }}" class="btn btn-primary">Exibe Amostras</a>
 
 @stop

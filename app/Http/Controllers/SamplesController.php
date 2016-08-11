@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\ProjectsController;
+
 use App\Http\Requests;
 
 use App\Project;
 use App\Sample;
 use App\Label;
 use App\Intermediate;
+
+use DB;
 
 class SamplesController extends Controller
 {
@@ -31,9 +35,15 @@ class SamplesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+/*    public function create()
     {
         return view('samples.create');
+    }*/
+
+    public function getAdiciona($id)
+    {
+      $projects = Project::findOrFail($id);
+      return view ('projects.samples.create')->withProjects($projects);
     }
 
     /**
@@ -42,9 +52,23 @@ class SamplesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postArmazena(Request $request, $id)
     {
-        //
+            $labels = Label::All();
+            $projects = Project::All();
+
+            $x = $request->longitude;
+            $y = $request->latitude;
+
+      			$sample = new Sample;
+      			$sample->date = $request->date;
+      			$sample->geom = DB::raw("ST_GeomFromText('POINT({$x} {$y})', 4326)");
+
+            $project = Project::find($id);
+
+      			$project->samples()->save($sample);
+
+      			return view('projects.index')->withProjects($projects);
     }
 
     /**

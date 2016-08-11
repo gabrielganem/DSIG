@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\belongsToMany;
-use App\Models\Label;
+//use App\Models\Label;
 
 class Project extends Model
 {

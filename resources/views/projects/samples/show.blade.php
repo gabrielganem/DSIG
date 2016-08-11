@@ -31,6 +31,6 @@
         {!! Form::close() !!}
     </div>
 
- <a href="#" class="btn btn-primary">Adicionar Campo</a>
+ <a href="{{ route('sample.novaAmostra', $projects->id) }}" class="btn btn-primary">Adicionar Campo</a>
 
 @stop

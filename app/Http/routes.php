@@ -23,6 +23,8 @@ Route::resource('samples', 'SamplesController');
 
 Route::controller('intermediate', 'IntermediatesController');
 
+Route::controller('sample', 'SamplesController');
+
 Route::post('/intermediate/atualiza/{id}',[
     'as' => 'intermediate.atualiza',
     'uses' => 'IntermediatesController@atualiza'
@@ -36,4 +38,14 @@ Route::post('/intermediate/adiciona',[
 Route::get('/projects/{id}/samples/',[
   'as' => 'project.amostras',
   'uses' => 'ProjectsController@getAmostras'
+]);
+
+Route::get('/projects/{id}/novoregistro',[
+    'as' => 'sample.novaAmostra',
+    'uses' => 'SamplesController@getAdiciona'
+]);
+
+Route::post('/projects/{id}/insereSample',[
+    'as' => 'sample.insereSample',
+    'uses' => 'SamplesController@postArmazena'
 ]);
