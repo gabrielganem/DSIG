@@ -8,7 +8,7 @@
 
 @include('partials.alerts.errors')
 
-<form action="/projects/{{ $projects->id}}/insereSample" class="form-horizontal" method="POST">
+<form action="/projects/{{ $projects->id }}/insereSample" class="form-horizontal" method="POST">
 
 <fieldset>
 <!-- Form Name -->
