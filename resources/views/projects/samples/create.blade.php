@@ -30,6 +30,13 @@
     <input id="longitude" name="longitude" type="number" placeholder="Longitude" class="form-control">
 </div>
 
+@foreach($projects->labels as $label)
+<div class="form-group">
+  <label for="{{$label->title}}">{{$label->title}}</label>
+    <input id="{{$label->title}}" name="{{$label->title}}-field" type="text" placeholder="value" class="form-control">
+</div>
+@endforeach
+
 <!-- Button -->
 <div class="form-group">
   <label for="btn"></label>
