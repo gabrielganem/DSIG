@@ -143,10 +143,10 @@ class ProjectsController extends Controller
     {
       $project = Project::where('id', $id)->firstOrFail();
       $sample = DB::table('samples')
-      ->select(DB::raw('ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+      ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
       ->where('project_id', $id)
       ->get();
 
-      return view('projects.samples.show')->withProjects($project)->withSamples($sample);
+      return view('projects.samples.index')->withProjects($project)->withSamples($sample);
     }
 }

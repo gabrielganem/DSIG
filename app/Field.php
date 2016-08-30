@@ -9,7 +9,6 @@ class Field extends Model
   protected $fillable = [
       'sample_id',
       'labels_id',
-      'date',
       'value',
   ];
 

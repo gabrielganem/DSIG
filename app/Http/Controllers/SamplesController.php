@@ -71,6 +71,12 @@ class SamplesController extends Controller
       			return view('projects.index')->withProjects($projects);
     }
 
+    public function getExibeAmostra($ids, $idp)
+    {
+      $samples = Sample::findOrFail($ids);
+      $projects = Project::findOrFail($idp);
+      return view ('projects.samples.show')->withSamples($samples)->withProjects($projects);
+    }
     /**
      * Display the specified resource.
      *

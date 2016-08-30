@@ -2,19 +2,35 @@
 
 @section('content')
 
-<h1>Amostras</h1>
-<h3>{{ $project->title }}</h3>
-
-<p class="lead">Estes são as suas amostras <a href="{{ route('samples.store')}}">Adicionar Nova?</a></p>
-<hr>
+<h1>{{ $projects->title }}</h1>
+<br />
 
 @foreach($samples as $sample)
-    <h3>{{ $sample->geom }}</h3>
-
+<div>
+    <h3>
+      <a href="{{ route('sample.exibeAmostra', array($sample->id, $projects->id)) }}">{{$sample->date}}</a>
+    </h3>
     <p>
-        <a href="{{ route('samples.show', $sample->id) }}" class="btn btn-info">Ver Amostra</a>
+      Latitude: {{$sample->lat}}
     </p>
-    <hr>
+    <p>
+      Longitude: {{$sample->lng}}
+    </p>
+  </div>
 @endforeach
+
+<a href="{{ route('projects.index') }}" class="btn btn-info">Voltar para Projetos</a>
+<a href="{{ route('projects.edit', $projects->id) }}" class="btn btn-primary">Editar Projeto</a>
+
+<div class="col-md-6 text-right">
+        {!! Form::open([
+            'method' => 'DELETE',
+            'route' => ['projects.destroy', $projects->id]
+        ]) !!}
+            {!! Form::submit('Apagar este Projeto?', ['class' => 'btn btn-danger']) !!}
+        {!! Form::close() !!}
+    </div>
+
+ <a href="{{ route('sample.novaAmostra', $projects->id) }}" class="btn btn-primary">Adicionar Campo</a>
 
 @stop

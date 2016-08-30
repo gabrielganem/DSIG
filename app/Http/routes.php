@@ -49,3 +49,8 @@ Route::post('/projects/{id}/insereSample',[
     'as' => 'sample.insereSample',
     'uses' => 'SamplesController@postArmazena'
 ]);
+
+Route::get('/projects/{projectId}/samples/{sampleId}',[
+    'as' => 'sample.exibeAmostra',
+    'uses' => 'SamplesController@getExibeAmostra'
+]);

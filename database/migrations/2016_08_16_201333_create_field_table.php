@@ -15,9 +15,8 @@ class CreateFieldTable extends Migration
       Schema::create('fields', function (Blueprint $table) {
           $table->increments('id');
           $table->text('value');
-          $table->integer('sample_id');
-          $table->integer('label_id');
-          $table->dateTime('date');
+          $table->integer('sample_id')->unsigned;
+          $table->integer('label_id')->unsigned;
           $table->timestamps();
       });
 
@@ -27,7 +26,6 @@ class CreateFieldTable extends Migration
       });
 
     }
-
 
     /**
      * Reverse the migrations.

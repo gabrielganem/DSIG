@@ -16,4 +16,9 @@ class Label extends Model
     {
         return $this->belongsToMany(Project::class);
     }
+
+    public function fields()
+    {
+      return $this->hasMany(Field::class);
+    }
 }
