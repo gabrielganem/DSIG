@@ -23,7 +23,7 @@
             {!! Form::submit('Apagar este Projeto?', ['class' => 'btn btn-danger']) !!}
         {!! Form::close() !!}
     </div>
-
+ <a href="{{ route('sample.novaAmostra', $projects->id) }}" class="btn btn-primary">Nova Amostra</a>
  <a href="{{ route('project.amostras', $projects->id) }}" class="btn btn-primary">Exibe Amostras</a>
 
 @stop

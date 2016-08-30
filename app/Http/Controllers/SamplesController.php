@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Project;
 use App\Sample;
 use App\Label;
+use App\Field;
 use App\Intermediate;
 
 use DB;
@@ -26,6 +27,8 @@ class SamplesController extends Controller
     {
         $sample = Sample::all();
         $project = Project::all();
+
+
 
       return view('samples.index')->withSamples($sample)->withProjects($project);
     }
@@ -75,7 +78,8 @@ class SamplesController extends Controller
     {
       $samples = Sample::findOrFail($ids);
       $projects = Project::findOrFail($idp);
-      return view ('projects.samples.show')->withSamples($samples)->withProjects($projects);
+      $fields = Field::all();
+      return view ('projects.samples.show')->withSamples($samples)->withProjects($projects)->withFields($fields);
     }
     /**
      * Display the specified resource.

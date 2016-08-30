@@ -12,12 +12,12 @@ class Field extends Model
       'value',
   ];
 
-  public function samples ()
+  public function sample ()
   {
     return $this->belongsTo(Sample::class);
   }
 
-  public function labels ()
+  public function label ()
   {
     return $this->belongsTo(Label::class);
   }
