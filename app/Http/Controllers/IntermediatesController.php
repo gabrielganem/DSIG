@@ -79,10 +79,7 @@ class IntermediatesController extends Controller
              $label = Label::where('id','=', $value)->get();
              $label[0]->projects()->attach($project);
            }
-
         }
-      //  $label = Label::where('id','=','1')->get();
-        //$label[0]->projects()->attach($project);
         $project = Project::all();
 
         return view('projects.index')->withProjects($project);

@@ -69,7 +69,23 @@ class SamplesController extends Controller
 
             $project = Project::find($id);
 
+            $input = $request->all();
+
       			$project->samples()->save($sample);
+
+
+            foreach ($input as $key => $value)
+            {
+              if(is_numeric($key)){
+                 //$label = Label::where('id','=', $value)->get();
+                 $field = New Field;
+                 $field->label_id = $key;
+                 $field->value = $value;
+                 $sample->fields()->save($field);
+                // $field[0]->sample()->attach($sample);
+               }
+            }
+
 
       			return view('projects.index')->withProjects($projects);
     }
@@ -79,7 +95,7 @@ class SamplesController extends Controller
       $samples = Sample::findOrFail($ids);
       $projects = Project::findOrFail($idp);
       $fields = Field::all();
-      return view ('projects.samples.show')->withSamples($samples)->withProjects($projects)->withFields($fields);
+      return view ('projects.samples.show')->withProjects($projects)->withSamples($samples)->withFields($fields);
     }
     /**
      * Display the specified resource.

@@ -9,7 +9,7 @@
 <hr>
     <h3>{{ $samples->geom }}</h3>
     <ul class="list-group">
-    @foreach($fields as $field)
+    @foreach($samples->fields as $field)
       <li class="list-group-item col-sm-4">
         <span class="col-sm-4 strong">{{ $field->label->title}}: </span>
         <span >{{ $field->value }}</span>

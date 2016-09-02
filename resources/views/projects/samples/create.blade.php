@@ -32,8 +32,8 @@
 
 @foreach($projects->labels as $label)
 <div class="form-group">
-  <label for="{{$label->title}}">{{$label->title}}</label>
-    <input id="{{$label->title}}" name="{{$label->title}}-field" type="text" placeholder="value" class="form-control">
+  <label for="{{$label->id}}">{{$label->title}}</label>
+    <input id="{{$label->id}}" name="{{$label->id}}" type="text" placeholder="{{$label->unity}}" class="form-control">
 </div>
 @endforeach
 
