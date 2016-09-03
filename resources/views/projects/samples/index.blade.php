@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.sample')
 
 @section('content')
 
@@ -33,4 +33,7 @@
 
  <a href="{{ route('sample.novaAmostra', $projects->id) }}" class="btn btn-primary">Adicionar Amostra</a>
 
-@stop
+
+<div id="googleMap" style="width:500px;height:380px;"></div>
+
+@endsection

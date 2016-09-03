@@ -6,6 +6,35 @@
 <title>DSIG</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
+<script>
+
+function initialize() {
+  var mapProp = {
+    center:new google.maps.LatLng({{$sample->lat}},{{$sample->lng}}),
+    zoom:5,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+
+
+
+  };
+  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+  @foreach($samples as $sample)
+    var marker=new google.maps.Marker({
+      position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
+      title: "{{ $sample->date }}"
+      });
+  marker.setMap(map);
+  @endforeach
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+</script>
+
+
 </head>
 <body>
 

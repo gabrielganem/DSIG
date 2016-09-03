@@ -26,4 +26,6 @@
  <a href="{{ route('sample.novaAmostra', $projects->id) }}" class="btn btn-primary">Nova Amostra</a>
  <a href="{{ route('project.amostras', $projects->id) }}" class="btn btn-primary">Exibe Amostras</a>
 
+
+
 @stop
