@@ -12,4 +12,6 @@
 <a href="{{ route('labels.index') }}" class="btn btn-info">Ver Etiquetas</a>
 <a href="{{ route('labels.create') }}" class="btn btn-primary">Nova Etiqueta</a>
 
+<a href="{{ route('sample.amostras') }}" class="btn btn-info">Ver Amostras</a>
+
 @stop

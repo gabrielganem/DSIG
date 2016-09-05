@@ -40,6 +40,11 @@ Route::get('/projects/{id}/samples/',[
   'uses' => 'ProjectsController@getAmostras'
 ]);
 
+Route::get('/samples',[
+  'as' => 'sample.amostras',
+  'uses' => 'SamplesController@getTodasAmostras'
+]);
+
 Route::get('/projects/{id}/novoregistro',[
     'as' => 'sample.novaAmostra',
     'uses' => 'SamplesController@getAdiciona'

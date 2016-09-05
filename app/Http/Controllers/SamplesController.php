@@ -24,12 +24,14 @@ class SamplesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getTodasAmostras()
     {
-        $sample = Sample::all();
-        $project = Project::all();
+        $samples = DB::table('samples')
+        ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+        ->get();
+        $projects = Project::all();
 
-      return view('samples.index')->withSamples($sample)->withProjects($project);
+      return view('samples.index')->withSamples($samples)->withProjects($projects);
     }
 
     /**

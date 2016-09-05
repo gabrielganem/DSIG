@@ -5,8 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DSIG</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
+<script>
+    var assetBaseUrl = "{{ asset('') }}";
+</script>
+<script type="text/javascript" src="{{ URL::asset('js/markerclusterer.js') }}"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
+
 <script>
 
 function initialize() {
@@ -20,16 +24,20 @@ function initialize() {
 
   var latlngbounds = new google.maps.LatLngBounds();
 
+  var markers = [];
 
   @foreach($samples as $sample)
     var marker=new google.maps.Marker({
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
       title: "{{ $sample->date }}"
       });
-  marker.setMap(map);
-latlngbounds.extend(marker.position);
-  map.fitBounds(latlngbounds);
+    marker.setMap(map);
+    latlngbounds.extend(marker.position);
+    map.fitBounds(latlngbounds);
+    markers.push(marker);
   @endforeach
+
+  var markerCluster = new MarkerClusterer(map, markers);
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 

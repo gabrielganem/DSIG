@@ -1,20 +1,47 @@
-@extends('layouts.master')
+@extends('layouts.sample')
 
 @section('content')
 
-<h1>Amostras</h1>
+<div class="col-md-12 text-center" id="googleMap" style="height:380px;"></div>
+<br />
+
+@foreach ($projects as $project)
 
 
-<p class="lead">Estes são as suas amostras <a href="{{ route('samples.store')}}">Adicionar Nova?</a></p>
-<hr>
+<div class="table-responsive col-sm-12">
+  <div><h3>{{$project->title}}</h3></div>
+  <table class="table table-hover table-striped table-condensed">
+  <thead>
+    <th>Data</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+  </thead>
+  <tbody>
+  @foreach($samples as $sample)
+  <tr>
+      <td>
+        <a href="{{ route('sample.exibeAmostra', array($sample->id, $project->id)) }}">{{$sample->date}}</a>
+      </td>
+      <td>
+        {{$sample->lat}}
+      </td>
+      <td>
+        {{$sample->lng}}
+      </td>
+    </tr>
+  @endforeach
 
-@foreach($samples as $sample)
-    <h3>{{ $sample->date }}</h3>
+</tbody>
+</table>
+</div>
+  @endforeach
+<div class="btn-group">
+<a href="{{ route('projects.index') }}" class="btn btn-info">Voltar para Projetos</a>
 
-    <p>
-        <a href="{{ route('samples.show', $sample->id) }}" class="btn btn-info">Ver Amostra</a>
-    </p>
-    <hr>
-@endforeach
+</div>
 
-@stop
+
+
+
+
+@endsection
