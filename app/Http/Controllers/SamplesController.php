@@ -91,17 +91,19 @@ class SamplesController extends Controller
 
     public function postExcelArmazena($id)
     {
-          $id1 = (int)$id;
+            $id1 = (int)$id;
+
             Excel::load(Input::file('datasheet'),function($reader) use($id1){
+
                 $results = $reader->get();
                 foreach ($results as $result)
                 {
-                  $x = $result->longitude;
-                  $y = $result->latitude;
+                  $x = $result->latitude;
+                  $y = $result->longitude;
 
                   $sample = new Sample;
                   $sample->date = $result->date;
-                  $sample->geom = DB::raw("ST_GeomFromText('POINT({$x} {$y})', 4326)");
+                  $sample->geom = DB::raw("ST_GeomFromText('POINT({$y} {$x})', 4326)");
 
                   $project = Project::find($id1);
 
