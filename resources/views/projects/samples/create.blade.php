@@ -21,7 +21,7 @@
 </div>
 </fieldset>
 </form>
-
+<br />
 
 
 <form action="/projects/{{ $projects->id }}/insereSample" class="form-horizontal" method="POST">
@@ -67,7 +67,7 @@
 
 <div class="form-group">
   <label for="btn"></label>
-    <button type="submit"  id="btn" name="btn" class="btn btn-primary">Criar Amostra</button>
+    <button type="submit"  id="btn" name="btn" class="btn btn-success">Criar Amostra</button>
 </div>
 </fieldset>
 
