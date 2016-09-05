@@ -11,6 +11,8 @@
 
     <hr>
 @endforeach
+
+
 		 {!! Form::open([
 		    'route' => 'labels.store'
 		]) !!}

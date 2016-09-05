@@ -8,6 +8,22 @@
 
 @include('partials.alerts.errors')
 
+<form action="/projects/{{ $projects->id }}/samples/Excel" class="form-inline" method="POST" enctype="multipart/form-data">
+  <fieldset>
+  <!-- Form Name -->
+  <legend>Importar Amostras</legend>
+<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+<div class="col-xs-8">
+  <label class="sr_only" for="datasheet"></label>
+  <input type="file" class="form-control" name="datasheet">
+  <label for="btn2"></label>
+  <input type="submit"  id="btn2" name="btn2" class="btn btn-success" value="Importar"></button>
+</div>
+</fieldset>
+</form>
+
+
+
 <form action="/projects/{{ $projects->id }}/insereSample" class="form-horizontal" method="POST">
 
 <fieldset>
@@ -24,12 +40,12 @@
 
   <div class="col-xs-2">
     <label for="latitude">Latitude</label>
-      <input id="latitude" name="latitude" type="number" placeholder="Latitude" class="form-control input-md">
+      <input id="latitude" name="latitude" type="number" step="any" placeholder="Latitude" class="form-control input-md">
     </div>
 
   <div class="col-xs-2">
     <label for="longitude">Longitude</label>
-      <input id="longitude" name="longitude" type="number" placeholder="Longitude" class="form-control">
+      <input id="longitude" name="longitude" type="number" step="any" placeholder="Longitude" class="form-control">
   </div>
 </div>
 </fieldset>
@@ -43,19 +59,19 @@
     <label class="sr-only" for="{{$label->id}}">{{$label->title}}</label>
     <div class="input-group-addon">{{$label->title}}</div>
       <input id="{{$label->id}}" name="{{$label->id}}" type="text" placeholder="{{$label->unity}}" class="form-control">
-  </div>
+    </div>
   <br />
 </div>
   @endforeach
 </div>
-</fieldset>
-<fieldset>
 
-<!-- Button -->
 <div class="form-group">
   <label for="btn"></label>
     <button type="submit"  id="btn" name="btn" class="btn btn-primary">Criar Amostra</button>
 </div>
 </fieldset>
+
 </form>
+
+
 @stop

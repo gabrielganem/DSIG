@@ -13,7 +13,8 @@ use App\Sample;
 use App\Label;
 use App\Field;
 use App\Intermediate;
-
+use Illuminate\Support\Facades\Input;
+use Excel;
 use DB;
 
 class SamplesController extends Controller
@@ -27,8 +28,6 @@ class SamplesController extends Controller
     {
         $sample = Sample::all();
         $project = Project::all();
-
-
 
       return view('samples.index')->withSamples($sample)->withProjects($project);
     }
@@ -90,6 +89,86 @@ class SamplesController extends Controller
       			return view('projects.index')->withProjects($projects);
     }
 
+    public function postExcelArmazena($id)
+    {
+          $id1 = (int)$id;
+            Excel::load(Input::file('datasheet'),function($reader) use($id1){
+                $results = $reader->get();
+                foreach ($results as $result)
+                {
+                  $x = $result->longitude;
+                  $y = $result->latitude;
+
+                  $sample = new Sample;
+                  $sample->date = $result->date;
+                  $sample->geom = DB::raw("ST_GeomFromText('POINT({$x} {$y})', 4326)");
+
+                  $project = Project::find($id1);
+
+                  $inputs = $results->all();
+
+                  $project->samples()->save($sample);
+
+                  foreach ($result as $key => $value)
+                  {
+                    if(is_numeric($key)){
+                       //$label = Label::where('id','=', $value)->get();
+                       $field = New Field;
+                       $field->label_id = $key;
+                       $field->value = $value;
+                       $sample->fields()->save($field);
+                      // $field[0]->sample()->attach($sample);
+                     }
+                  }
+            }
+          });
+
+        $project = Project::find($id);
+        $sample = DB::table('samples')
+        ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+        ->where('project_id', $id)
+        ->get();
+
+        return view('projects.samples.index')->withProjects($project)->withSamples($sample);
+      }
+
+/*
+            $labels = Label::All();
+            $projects = Project::All();
+
+            foreach ($results as $result)
+            {
+              $x = $result->longitude;
+              $y = $result->latitude;
+
+        			$sample = new Sample;
+        			$sample->date = $result->date;
+        			$sample->geom = DB::raw("ST_GeomFromText('POINT({$x} {$y})', 4326)");
+
+              $project = Project::find($id);
+
+              $inputs = $request->all();
+
+        			$project->samples()->save($sample);
+
+
+              foreach ($inputs as $input)
+              {
+                if(is_numeric($key)){
+                   //$label = Label::where('id','=', $value)->get();
+                   $field = New Field;
+                   $field->label_id = $key;
+                   $field->value = $value;
+                   $sample->fields()->save($field);
+                  // $field[0]->sample()->attach($sample);
+                 }
+              }
+            }
+
+
+      			return view('projects.index')->withProjects($projects); */
+
+
     public function getExibeAmostra($ids, $idp)
     {
       $samples = Sample::findOrFail($ids);
@@ -97,6 +176,7 @@ class SamplesController extends Controller
       $fields = Field::all();
       return view ('projects.samples.show')->withProjects($projects)->withSamples($samples)->withFields($fields);
     }
+
     /**
      * Display the specified resource.
      *

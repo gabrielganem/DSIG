@@ -149,6 +149,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Cornford\Googlmapper\MapperServiceProvider::class,
+        Collective\Bus\BusServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
         /*
@@ -207,6 +209,7 @@ return [
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
         'Mapper'    => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

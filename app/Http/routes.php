@@ -54,3 +54,13 @@ Route::get('/projects/{projectId}/samples/{sampleId}',[
     'as' => 'sample.exibeAmostra',
     'uses' => 'SamplesController@getExibeAmostra'
 ]);
+
+Route::get('/projects/{projectId}/samples/import',[
+  'as' => 'sample.importaAmostra',
+  'uses' => 'SamplesController@getImportaAmostra'
+]);
+
+Route::post('/projects/{id}/samples/Excel',[
+  'as' => 'sample.excelAmostra',
+  'uses' => 'SamplesController@postExcelArmazena'
+]);
