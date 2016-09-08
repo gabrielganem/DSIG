@@ -4,7 +4,7 @@
 
 <h1>{{ $projects->title }}</h1>
 <br />
-<div class="col-md-12 text-center" id="googleMap" style="height:380px;"></div>
+<div class="col-md-12 text-center" id="googleMap" style="height:680px;"></div>
 <div class="table-responsive col-sm-12">
   <table class="table table-hover table-striped table-condensed">
   <thead>

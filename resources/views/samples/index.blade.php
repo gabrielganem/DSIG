@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="col-md-12 text-center" id="googleMap" style="height:380px;"></div>
+<div class="col-md-12 text-center" id="googleMap" style="height:680px;"></div>
 <br />
 
 @foreach ($projects as $project)
