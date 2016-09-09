@@ -17,6 +17,5 @@
 <a href="{{ route('labels.index') }}" class="btn btn-info">Ver Etiquetas</a>
 
 <a href="{{ route('sample.amostras') }}" class="btn btn-info">Ver Amostras</a>
-
 @endif
 @stop

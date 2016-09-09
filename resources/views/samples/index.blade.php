@@ -40,8 +40,4 @@
 
 </div>
 
-
-
-
-
 @endsection

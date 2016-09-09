@@ -18,16 +18,12 @@ Route::get('/', [
 
 Route::get('/home', 'PagesController@home');
 
-
 Route::resource('samples', 'SamplesController');
 Route::controller('sample', 'SamplesController');
 Route::get('/samples',[
   'as' => 'sample.amostras',
   'uses' => 'SamplesController@getTodasAmostras'
 ]);
-
-
-
 
 Route::auth();
 
@@ -36,10 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::resource('labels', 'LabelsController');
 
-
   Route::controller('intermediate', 'IntermediatesController');
-
-
 
   Route::post('/intermediate/atualiza/{id}',[
       'as' => 'intermediate.atualiza',
@@ -55,7 +48,6 @@ Route::group(['middleware' => 'auth'], function () {
     'as' => 'project.amostras',
     'uses' => 'ProjectsController@getAmostras'
   ]);
-
 
   Route::get('/projects/{id}/novoregistro',[
       'as' => 'sample.novaAmostra',
@@ -81,5 +73,4 @@ Route::group(['middleware' => 'auth'], function () {
     'as' => 'sample.excelAmostra',
     'uses' => 'SamplesController@postExcelArmazena'
   ]);
-
 });
