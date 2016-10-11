@@ -136,6 +136,16 @@ class SamplesController extends Controller
         return view('projects.samples.index')->withProjects($project)->withSamples($sample);
       }
 
+    public function postExcelSet(Request $request, $id)
+      {
+          $project = Project::find($id);
+
+          $npontos = $request->npontos;
+          $data = array('numero' => $npontos);
+
+          return view('projects.samples.setsheet')->with('npontos', $npontos)->withProjects($project);
+        }
+
 /*
             $labels = Label::All();
             $projects = Project::All();

@@ -16,11 +16,16 @@ class CreateProfilesTable extends Migration
           $table->increments('id');
           $table->text('biography');
           $table->integer('institute_id')->unsigned;
+          $table->integer('user_id')->unsigned;
           $table->timestamps();
       });
 
       Schema::table('profiles', function($table) {
           $table->foreign('institute_id')->references('id')->on('institutes');
+      });
+
+      Schema::table('profiles', function($table) {
+          $table->foreign('user_id')->references('id')->on('users');
       });
 
     }

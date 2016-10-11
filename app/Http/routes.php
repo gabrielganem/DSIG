@@ -73,4 +73,9 @@ Route::group(['middleware' => 'auth'], function () {
     'as' => 'sample.excelAmostra',
     'uses' => 'SamplesController@postExcelArmazena'
   ]);
+
+  Route::post('/projects/{id}/samples/setExcel',[
+    'as' => 'sample.excelConfigura',
+    'uses' => 'SamplesController@postExcelSet'
+  ]);
 });

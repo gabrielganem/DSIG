@@ -23,6 +23,24 @@
 </form>
 <br />
 
+<form action="/projects/{{ $projects->id }}/samples/setExcel" class="form-horizontal" method="POST" enctype="multipart/form-data">
+  <fieldset>
+  <!-- Form Name -->
+  <legend>Gerar Planilha</legend>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+<div class="form-group">
+    <div class="col-xs-2">
+      <label for="npontos">Número de Pontos</label>
+        <input id="npontos" name="npontos" type="number" placeholder="Numero de Pontos" class="form-control">
+    </div>
+</div>
+    <div class="col-xs-8">
+      <label for="btn2"></label>
+      <input type="submit"  id="btn3" name="btn3" class="btn btn-success" value="Avançar"></button>
+    </div>
+</fieldset>
+</form>
+<br />
 
 <form action="/projects/{{ $projects->id }}/insereSample" class="form-horizontal" method="POST">
 
