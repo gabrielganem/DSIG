@@ -14,6 +14,23 @@
   <legend>Gerar Planilha</legend>
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
+    <div class="form-group">
+        <div class="col-xs-4">
+          <label for="date">Data Inicial</label>
+            <input id="date" name="date" type="datetime-local" class="form-control">
+        </div>
+
+        <div class="col-xs-2">
+          <label for="periodo">Período (em dias)</label>
+            <input id="periodo" name="periodo" type="number" placeholder="Período" class="form-control">
+        </div>
+
+          <div class="col-xs-2">
+            <label for="frequencia">Frequência (em dias)</label>
+              <input id="frequencia" name="frequencia" type="number" placeholder="Frequência" class="form-control">
+          </div>
+    </div>
+
 <div class="form-group">
     <div class="col-xs-4">
       @for ($i = 0; $i < $npontos; $i++)
@@ -23,17 +40,7 @@
       @endfor
     </div>
 </div>
-<div class="form-group">
-    <div class="col-xs-4">
-      <label for="date">Data Inicial</label>
-        <input id="date" name="date" type="datetime-local" class="form-control">
-    </div>
 
-    <div class="col-xs-2">
-      <label for="periodo">Período (em dias)</label>
-        <input id="periodo" name="periodo" type="number" placeholder="Dias" class="form-control">
-    </div>
-</div>
     <div class="col-xs-8">
       <label for="btn2"></label>
       <input type="submit"  id="btn3" name="btn3" class="btn btn-success" value="Avançar"></button>

@@ -146,6 +146,14 @@ class SamplesController extends Controller
           return view('projects.samples.setsheet')->with('npontos', $npontos)->withProjects($project);
         }
 
+      public function getExport(Request $request, $id)
+      {
+          $project = Project::find($id);
+
+          $npontos = $request->npontos;
+
+      }
+
 /*
             $labels = Label::All();
             $projects = Project::All();
