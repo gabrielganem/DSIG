@@ -21,11 +21,13 @@ class CreateProfilesTable extends Migration
       });
 
       Schema::table('profiles', function($table) {
-          $table->foreign('institute_id')->references('id')->on('institutes');
+          $table->foreign('institute_id')->references('id')->on('institutes')
+                ->onDelete('cascade')->onUpdated('cascade');
       });
 
       Schema::table('profiles', function($table) {
-          $table->foreign('user_id')->references('id')->on('users');
+          $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')->onUpdated('cascade');
       });
 
     }

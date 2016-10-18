@@ -21,8 +21,10 @@ class CreateFieldTable extends Migration
       });
 
       Schema::table('fields', function($table) {
-          $table->foreign('sample_id')->references('id')->on('samples');
-          $table->foreign('label_id')->references('id')->on('labels');
+          $table->foreign('sample_id')->references('id')->on('samples')
+                ->onDelete('cascade')->onUpdated('cascade');
+          $table->foreign('label_id')->references('id')->on('labels')
+                ->onDelete('cascade')->onUpdated('cascade');
       });
 
     }

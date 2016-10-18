@@ -146,6 +146,20 @@ class SamplesController extends Controller
           return view('projects.samples.setsheet')->with('npontos', $npontos)->withProjects($project);
         }
 
+    public function postExcelExport(Request $request, $id)
+    {
+      //$project = Project::find($id);
+      //$labels = Label::All();
+
+     Excel::create('Planilha_Teste', function($excel) {
+       $excel->sheet('First sheet', function($sheet) {
+         $sheet->row(1, array(
+        'test1', 'test2'));
+        });
+     })->download('xls');
+
+
+    }
 /*
             $labels = Label::All();
             $projects = Project::All();

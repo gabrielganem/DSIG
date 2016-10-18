@@ -8,7 +8,7 @@
 @include('partials.alerts.errors')
 
 
-<form action="/projects/{{ $projects->id }}/samples/setExcel" class="form-horizontal" method="POST" enctype="multipart/form-data">
+<form action="/projects/{{ $projects->id }}/samples/exportExcel" class="form-horizontal" method="POST" enctype="multipart/form-data">
   <fieldset>
   <!-- Form Name -->
   <legend>Gerar Planilha</legend>

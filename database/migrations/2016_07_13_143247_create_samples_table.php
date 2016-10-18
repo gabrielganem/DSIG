@@ -20,7 +20,8 @@ class CreateSamplesTable extends Migration
         });
 
        Schema::table('samples', function($table) {
-           $table->foreign('project_id')->references('id')->on('projects');
+           $table->foreign('project_id')->references('id')->on('projects')
+                  ->onDelete('cascade')->onUpdated('cascade');
        });
 
         DB::unprepared("ALTER TABLE samples ADD COLUMN geom GEOMETRY(POINT, 4326)");

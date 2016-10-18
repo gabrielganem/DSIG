@@ -78,4 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
     'as' => 'sample.excelConfigura',
     'uses' => 'SamplesController@postExcelSet'
   ]);
+
+  Route::post('/projects/{id}/samples/exportExcel',[
+    'as' => 'sample.excelExporta',
+    'uses' => 'SamplesController@postExcelExport'
+  ]);
 });
