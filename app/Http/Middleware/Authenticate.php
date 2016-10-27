@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Gate;
 
 class Authenticate
 {
@@ -25,6 +24,10 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ecdb6678015d97b62e2456de401ff6b4574c487
         return $next($request);
     }
 }
