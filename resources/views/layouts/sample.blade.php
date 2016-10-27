@@ -12,6 +12,7 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ URL::asset('js/iThing.css') }}">
 {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
 
@@ -19,9 +20,15 @@
     var assetBaseUrl = "{{ asset('') }}";
 </script>
 <script type="text/javascript" src="{{ URL::asset('js/markerclusterer.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/jQDateRangeSlider-min.js') }}"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
 
 <script>
+  $("#slider").rangeSlider();
+</script>
+
+<script>
+  var markers = [];
 
 function initialize() {
   var mapProp = {
@@ -34,7 +41,7 @@ function initialize() {
 
   var latlngbounds = new google.maps.LatLngBounds();
 
-  var markers = [];
+
 
   @foreach($samples as $sample)
     var marker=new google.maps.Marker({
@@ -51,7 +58,24 @@ function initialize() {
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
+filterMarkers = function (category) {
+
+      for (i = 0; i < markers1.length; i++) {
+          marker = markes[i];
+          // If is same category or category not picked
+          if (marker.title < date1 || marker.title > date0) {
+              marker.setVisible(true);
+          }
+          // Categories don't match
+          else {
+              marker.setVisible(false);
+          }
+      }
+  }
+
+
 </script>
+
 
 <style>
     body {
@@ -124,5 +148,7 @@ function initialize() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+
 </body>
 </html>

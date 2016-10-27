@@ -25,11 +25,6 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
-        dd(Gate::denies('auth'));
-        if(Gate::denies('auth'))
-        {
-          abort(503);
-        }
         return $next($request);
     }
 }

@@ -5,6 +5,12 @@
 <div class="col-md-12 text-center" id="googleMap" style="height:680px;"></div>
 <br />
 
+<article style="padding:50px 20px">
+
+<div id="slider"></div>
+
+</article>
+
 @foreach ($projects as $project)
 
 

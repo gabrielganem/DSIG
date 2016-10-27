@@ -24,4 +24,14 @@ class Project extends Model
     {
       return $this->hasMany(Sample::class);
     }
+
+    public function profile()
+    {
+      return $this->belongsTo(User::class);
+    }
+
+    public function institute()
+    {
+      return $this->belongsTo(Institute::class);
+    }
 }

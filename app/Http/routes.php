@@ -46,8 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('/projects/{id}/samples/',[
     'as' => 'project.amostras',
-    'uses' => 'ProjectsController@getAmostras',
-    'role'=> 'admin_view'
+    'uses' => 'ProjectsController@getAmostras'
   ]);
 
   Route::get('/projects/{id}/novoregistro',[
