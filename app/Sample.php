@@ -14,7 +14,7 @@ class Sample extends Model
         'geom',
     ];
 
-    public function projects ()
+    public function project ()
     {
       return $this->belongsTo(Project::class);
     }

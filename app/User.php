@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','lattes','institute_id'
     ];
 
     /**
@@ -20,11 +20,12 @@ class User extends Authenticatable
      *
      * @var array
      */
+
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function profile () {
-      return $this->hasOne(Profile::class);
+    public function project () {
+      return $this->hasMany(Project::class);
     }
 }

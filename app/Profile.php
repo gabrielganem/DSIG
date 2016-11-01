@@ -14,18 +14,4 @@ class Profile extends Model
         'geom',
     ];
 
-    public function user ()
-    {
-      return $this->belongsTo(User::class);
-    }
-
-    public function institute ()
-    {
-      return $this->belongsTo(Institute::class);
-    }
-
-    public function projects ()
-    {
-      return $this->hasMany(Project::class);
-    }
 }

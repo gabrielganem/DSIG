@@ -13,8 +13,8 @@ class Institute extends Model
         'geom',
     ];
 
-    public function profile ()
+    public function users ()
     {
-      return $this->hasMany(Profile::class);
+      return $this->hasMany(Users::class);
     }
 }
