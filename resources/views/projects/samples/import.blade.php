@@ -17,6 +17,5 @@
       <button type="submit"  id="btn2" name="btn" class="btn btn-success">Importar</button>
 </div>
 
-</fieldset>
 </form>
 @stop

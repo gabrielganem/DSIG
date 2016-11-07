@@ -38,6 +38,39 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('lattes') ? ' has-error' : '' }}">
+                            <label for="lattes" class="col-md-4 control-label">Lattes</label>
+
+                            <div class="col-md-6">
+                                <input id="lattes" type="text" class="form-control" name="lattes" value="{{ old('lattes') }}">
+
+                                @if ($errors->has('lattes'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('lattes') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('institute') ? ' has-error' : '' }}">
+                            <label for="institute" class="col-md-4 control-label">Instituição</label>
+
+                            <div class="col-md-6">
+                              <select name="institutes">
+                                @foreach($institutes as $institute)
+                                <option value="{{ $institute->id }}">{{ $institute->name }}</option>
+                                @endforeach
+                              </select>
+
+                                @if ($errors->has('institute'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('institute') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 

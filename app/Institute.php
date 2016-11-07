@@ -10,11 +10,12 @@ class Institute extends Model
 {
     protected $fillable = [
         'name',
+        'abreviature',
         'geom',
     ];
 
     public function users ()
     {
-      return $this->hasMany(Users::class);
+      return $this->hasMany(User::class);
     }
 }
