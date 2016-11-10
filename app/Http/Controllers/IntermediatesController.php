@@ -80,7 +80,9 @@ class IntermediatesController extends Controller
              $label[0]->projects()->attach($project);
            }
         }
-        $project = Project::all();
+        $user = Auth::user();
+
+        $project = $user->projects()->where('user_id', $user->id)->get();
 
         return view('projects.index')->withProjects($project);
     }
