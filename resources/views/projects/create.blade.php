@@ -26,14 +26,10 @@
   </div>
 
 <div class="form-group">
-  <label for="institute">Instituição</label>
-    <input id="institute" name="institute" type="text" placeholder="Instituição" class="form-control">
-</div>
+  <label for="private">Projeto Privado</label>
+    <input id="private" name="private" type="checkbox" value="t" class="form-control input-md"></textarea>
+  </div>
 
-<div class="form-group">
-  <labelfor="department">Departamento</label>
-    <input id="department" name="department" type="text" placeholder="Departamento" class="form-control">
-</div>
 
 <!-- Multiple Checkboxes -->
 <div class="form-group">

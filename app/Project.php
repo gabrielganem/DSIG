@@ -22,7 +22,7 @@ class Project extends Model
 
     public function samples()
     {
-      return $this->hasMany(Sample::class);
+        return $this->hasMany(Sample::class);
     }
 
     public function users()

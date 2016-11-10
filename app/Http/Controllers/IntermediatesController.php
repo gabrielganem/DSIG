@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
+use Auth;
 use App\Label;
 use App\Http\Requests;
 use App\Http\Controllers\ProjectsController;
@@ -31,13 +32,11 @@ class IntermediatesController extends Controller
         $this->validate($request, [
             'titulo' => 'required',
             'description' => 'required',
-            'institute' => 'required',
             'department' => 'required'
         ]);
         //$project = new Project();
         $project->title = $request->titulo;
         $project->description = $request->description;
-        $project->institute = $request->institute;
         $project->department = $request->department;
 
         //$input = $request->all();
@@ -51,23 +50,24 @@ class IntermediatesController extends Controller
 
     public function postAdiciona(Request $request)
     {
+
+        $userId = Auth::user()->id;
         //$project = Project::findOrFail($id);
         $project = new Project;
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
-            'institute' => 'required',
-            'department' => 'required'
         ]);
         //$project = new Project();
         $project->title = $request->title;
         $project->description = $request->description;
-        $project->institute = $request->institute;
-        $project->department = $request->department;
+        $project->private = isset($request->private) ? 1 : 0;
 
         $input = $request->all();
         //Project::create($project);
+        //$project->save();
         $project->save();
+        $project->users()->attach([$userId => [ 'role' => 1] ]);
 
         Session::flash('flash_message', 'Projeto Adicionado com Sucesso!');
 
