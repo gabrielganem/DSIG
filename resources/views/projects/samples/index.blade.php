@@ -28,9 +28,18 @@
 @endforeach
 </tbody>
 </table>
+
+
+<form id="select_label" action="filterMarkers(this.value);">
+@foreach($projects->labels as $label)
+    <input type="checkbox" name="{{$label->title}}" value="{{$label->id}}">{{$label->title}}<br>
+@endforeach
+</form>
+
+
 </div>
 <div class="btn-group">
-<a href="{{ route('projects.index') }}" class="btn btn-info">Voltar para Projetos</a>
+<a href="{{ route('projects.index') }}" class="btn btn-info">Voltasr para Projetos</a>
 <a href="{{ route('projects.edit', $projects->id) }}" class="btn btn-primary">Editar Projeto</a>
  <a href="{{ route('sample.novaAmostra', $projects->id) }}" class="btn btn-primary">Adicionar Amostra</a>
 </div>

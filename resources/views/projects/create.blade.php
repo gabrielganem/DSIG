@@ -27,7 +27,12 @@
 
 <div class="form-group">
   <label for="private">Projeto Privado</label>
-    <input id="private" name="private" type="checkbox" value="t" class="form-control input-md"></textarea>
+    <input id="private" name="private" type="checkbox" value="t" class="form-control input-md">
+  </div>
+
+<div class="form-group">
+  <label for="collaborator">Colaborador</label>
+    <input id="collaborator" name="collaborator" type="text" placeholder="e-mail" class="form-control input-md">
   </div>
 
 

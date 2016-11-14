@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
+use App\User;
 use Auth;
 use App\Label;
 use App\Http\Requests;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\LabelsController;
+use DB;
 
 use App\Http\Controllers\IntermediatesController;
 use Session;
@@ -50,7 +52,6 @@ class IntermediatesController extends Controller
 
     public function postAdiciona(Request $request)
     {
-
         $userId = Auth::user()->id;
         //$project = Project::findOrFail($id);
         $project = new Project;
@@ -82,8 +83,11 @@ class IntermediatesController extends Controller
         }
         $user = Auth::user();
 
-        $project = $user->projects()->where('user_id', $user->id)->get();
+        $colaborador = DB::table('users')->where('email', $request->collaborator)->first();
 
+        $project->users()->attach([ $colaborador->id => [ 'role' => 0] ]);
+
+        $project = $user->projects()->where('user_id', $user->id)->get();
         return view('projects.index')->withProjects($project);
     }
 

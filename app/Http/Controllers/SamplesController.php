@@ -26,12 +26,48 @@ class SamplesController extends Controller
      */
     public function getTodasAmostras()
     {
+        $labels = Label::all();
+        $fields = Field::all();
         $samples = DB::table('samples')
         ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
         ->get();
         $projects = Project::all();
 
-      return view('samples.index')->withSamples($samples)->withProjects($projects);
+      return view('samples.index')->withSamples($samples)->withProjects($projects)->withLabels($labels)->withFields($fields);
+    }
+
+    public function getAmostraFiltrada(Request $request)
+    {
+
+      $label = Label::where('title','=', $request->label)->get();
+
+      $samplesdb = DB::table('samples')
+      ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+      ->get();
+
+      $amostra = array();
+        foreach ($label[0]->projects as $project)
+        {
+          foreach ($project->samples as $sample)
+          {
+
+              foreach($samplesdb as $sampledb)
+            {
+              if ($sample->id == $sampledb->id)
+              {
+                if(!in_array($sampledb,$amostra)) {$amostra[] = $sampledb;}
+              }
+            }
+          }
+        }
+
+
+              $labels = Label::all();
+              $projects = Project::all();
+              $fields = Field::all();
+
+        
+      return view('samples.index')->with(['amostra' => $amostra])->withProjects($projects)->withLabels($labels)->withFields($fields);
     }
 
     /**
@@ -88,7 +124,7 @@ class SamplesController extends Controller
             }
 
 
-      			return view('projects.index')->withProjects($projects);
+      			return view('projects.index')->withProjects($projects)->withLabels($labels);
     }
 
     public function postExcelArmazena($id)
@@ -133,7 +169,7 @@ class SamplesController extends Controller
         ->where('project_id', $id)
         ->get();
 
-        return view('projects.samples.index')->withProjects($project)->withSamples($sample);
+        return view('projects.samples.index')->withProjects($project)->withSamples($sample)->withLabels($labels);
       }
 
     public function postExcelSet(Request $request, $id)

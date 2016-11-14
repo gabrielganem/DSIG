@@ -25,6 +25,11 @@ Route::get('/samples',[
   'uses' => 'SamplesController@getTodasAmostras'
 ]);
 
+Route::get('/fsamples',[
+  'as' => 'sample.filteredAmostras',
+  'uses' => 'SamplesController@getAmostraFiltrada'
+]);
+
 Route::resource('institutes', 'InstitutesController');
 
 //AUTH

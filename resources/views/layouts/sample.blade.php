@@ -16,16 +16,121 @@
 {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
 
+<style>
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin: 0px;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #FFF;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 25px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+</style>
+
 <script>
     var assetBaseUrl = "{{ asset('') }}";
 </script>
 <script type="text/javascript" src="{{ URL::asset('js/markerclusterer.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jQDateRangeSlider-min.js') }}"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
-
-<script>
-  $("#slider").rangeSlider();
-</script>
 
 <script>
   var markers = [];
@@ -43,7 +148,7 @@ function initialize() {
 
 
 
-  @foreach($samples as $sample)
+  @foreach($amostra as $sample)
     var marker=new google.maps.Marker({
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
       title: "{{ $sample->date }}"
@@ -54,24 +159,12 @@ function initialize() {
     markers.push(marker);
   @endforeach
 
+
   var markerCluster = new MarkerClusterer(map, markers);
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
-filterMarkers = function (category) {
 
-      for (i = 0; i < markers1.length; i++) {
-          marker = markes[i];
-          // If is same category or category not picked
-          if (marker.title < date1 || marker.title > date0) {
-              marker.setVisible(true);
-          }
-          // Categories don't match
-          else {
-              marker.setVisible(false);
-          }
-      }
-  }
 
 
 </script>
@@ -110,7 +203,6 @@ filterMarkers = function (category) {
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
           <!-- Left Side Of Navbar -->
 
-
           <!-- Right Side Of Navbar -->
           <ul class="nav navbar-nav navbar-right">
               <!-- Authentication Links -->
@@ -133,7 +225,30 @@ filterMarkers = function (category) {
   </div>
 </nav>
 
+<div id="sidebar-wrapper">
+          <ul class="sidebar-nav">
+              <li class="sidebar-brand">
+                  <a href="#">
+                      Filtro Amostras
+                  </a>
+                  <form action="/fsamples" method="get">
+              </li>
+              <li>
+                  Atributo:
+              </li>
+              <li>
+                <input type="text" name="label"><br>
+              </li>
+
+              <li>
+                <input type="submit" value="Submit">
+              </li>
+            </form>
+          </ul>
+      </div>
+
 <main>
+
     <div class="container">
 
     @if(Session::has('flash_message'))
@@ -149,6 +264,7 @@ filterMarkers = function (category) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
+<!-- Sidebar -->
 
 </body>
 </html>
