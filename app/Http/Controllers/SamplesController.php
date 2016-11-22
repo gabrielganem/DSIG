@@ -41,6 +41,19 @@ class SamplesController extends Controller
 
       $label = Label::where('title','=', $request->label)->get();
 
+      if(count($label)==0)
+      {
+        $labels = Label::all();
+        $projects = Project::all();
+        $fields = Field::all();
+        $amostra = Sample::all();
+
+
+        return view('samples.index')->withSamples($amostra)->withProjects($projects)->withLabels($labels)->withFields($fields);
+      }
+
+      else
+      {
       $samplesdb = DB::table('samples')
       ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
       ->get();
@@ -61,15 +74,13 @@ class SamplesController extends Controller
           }
         }
 
+        $labels = Label::all();
+        $projects = Project::all();
+        $fields = Field::all();
 
-              $labels = Label::all();
-              $projects = Project::all();
-              $fields = Field::all();
-
-        
       return view('samples.index')->with(['amostra' => $amostra])->withProjects($projects)->withLabels($labels)->withFields($fields);
     }
-
+  }
     /**
      * Show the form for creating a new resource.
      *
