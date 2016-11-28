@@ -21,13 +21,13 @@
         </div>
 
         <div class="col-xs-2">
-          <label for="periodo">Período (em dias)</label>
-            <input id="periodo" name="periodo" type="number" placeholder="Período" class="form-control">
+          <label for="frequencia">Frequência (em dias)</label>
+            <input id="frequencia" name="frequencia" type="number" placeholder="Frequência" class="form-control">
         </div>
 
           <div class="col-xs-2">
-            <label for="frequencia">Frequência (em dias)</label>
-              <input id="frequencia" name="frequencia" type="number" placeholder="Frequência" class="form-control">
+            <label for="n_coleta">Número de Coletas</label>
+              <input id="n_coleta" name="n_coleta" type="number" placeholder="Número de Coletas" class="form-control">
           </div>
     </div>
 
