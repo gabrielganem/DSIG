@@ -40,7 +40,7 @@ function initialize() {
 
 
 
-  @foreach($amostra as $sample)
+  @foreach($samples as $sample)
     var marker=new google.maps.Marker({
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
       title: "{{ $sample->date }}"

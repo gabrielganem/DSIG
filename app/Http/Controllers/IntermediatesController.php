@@ -83,9 +83,12 @@ class IntermediatesController extends Controller
         }
         $user = Auth::user();
 
-        $colaborador = DB::table('users')->where('email', $request->collaborator)->first();
+        if($request->collaborator)
+        {
+          $colaborador = DB::table('users')->where('email', $request->collaborator)->first();
 
-        $project->users()->attach([ $colaborador->id => [ 'role' => 0] ]);
+          $project->users()->attach([ $colaborador->id => [ 'role' => 0] ]);
+        }
 
         $project = $user->projects()->where('user_id', $user->id)->get();
         return view('projects.index')->withProjects($project);

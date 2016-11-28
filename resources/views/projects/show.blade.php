@@ -7,9 +7,16 @@
 <h4>Descrição</h4>
 <p class="lead">{{ $projects->description }}</p>
 <h4>Instituição</h4>
-<p class="lead">{{ $projects->institute }}</p>
-<h4>Departamento</h4>
-<p class="lead">{{ $projects->department }}</p>
+<p class="lead">{{ $projects->users[0]->institute->name}}</p>
+<h4>Participantes</h4>
+  @foreach($projects->users as $user)
+  <p class="lead">{{ $user->email}} |
+    @if($user->pivot->role) Administrador </p>
+    @else
+      Colaborador </p>
+    @endif
+@endforeach
+
 <hr>
 
 <a href="{{ route('projects.index') }}" class="btn btn-info">Voltar para Projetos</a>
