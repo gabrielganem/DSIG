@@ -20,6 +20,7 @@ Route::get('/home', 'PagesController@home');
 
 Route::resource('samples', 'SamplesController');
 Route::controller('sample', 'SamplesController');
+
 Route::get('/samples',[
   'as' => 'sample.amostras',
   'uses' => 'SamplesController@getTodasAmostras'
