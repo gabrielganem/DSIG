@@ -10,7 +10,7 @@
 <p class="lead">{{ $projects->users[0]->institute->name}}</p>
 <h4>Participantes</h4>
   @foreach($projects->users as $user)
-  <p class="lead">{{ $user->email}} |
+  <p class="lead">{{ $user->name}} |
     @if($user->pivot->role) Administrador </p>
     @else
       Colaborador </p>

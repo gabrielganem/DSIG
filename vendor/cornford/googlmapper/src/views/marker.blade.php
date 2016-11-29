@@ -65,6 +65,12 @@ markers.push(marker_{!! $id !!});
 			content: {!! json_encode($options['content']) !!}
 		});
 
+		@if (isset($options['maxWidth']))
+
+			infowindow_{!! $id !!}.setOptions({ maxWidth: {!! $options['maxWidth'] !!} });
+
+		@endif
+
 		@if (isset($options['open']) && $options['open'])
 
 			infowindow_{!! $id !!}.open({!! $options['map'] !!}, marker_{!! $id !!});
@@ -72,8 +78,19 @@ markers.push(marker_{!! $id !!});
 		@endif
 
 		google.maps.event.addListener(marker_{!! $id !!}, 'click', function() {
+
+			@if (isset($options['autoClose']) && $options['autoClose'])
+
+				for (var i = 0; i < infowindows.length; i++) {
+					infowindows[i].close();
+				}
+
+			@endif
+
 			infowindow_{!! $id !!}.open({!! $options['map'] !!}, marker_{!! $id !!});
 		});
+
+		infowindows.push(infowindow_{!! $id !!});
 
 	@endif
 
