@@ -145,6 +145,7 @@ class SamplesController extends Controller
             Excel::load(Input::file('datasheet'),function($reader) use($id1){
 
                 $results = $reader->get();
+
                 foreach ($results as $result)
                 {
                   $x = $result->latitude;
@@ -160,21 +161,25 @@ class SamplesController extends Controller
 
                   $project->samples()->save($sample);
 
+                  $array = ["date","latitude","longitude"];
                   foreach ($result as $key => $value)
                   {
-                    if(is_numeric($key)){
-                       $label = Label::where('id','=', $key)->get();
+                    if( !(in_array($key, $array)) )
+                    {
+
+                       $label = Label::where('title', $key)->first();
                        $field = New Field;
-                       $field->label_id = $key;
+                       $field->label_id = $label->id;
                        $field->value = $value;
                        $sample->fields()->save($field);
                       // $field[0]->sample()->attach($sample);
-                     }
+                    }
                   }
             }
           });
 
         $project = Project::find($id);
+        $labels = Label::all();
         $sample = DB::table('samples')
         ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
         ->where('project_id', $id)
