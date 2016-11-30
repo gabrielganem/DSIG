@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Project;
 use App\Sample;
 use App\Label;
+use App\User;
 use App\Intermediate;
 use Session;
 use DB;

@@ -39,7 +39,13 @@ function initialize() {
 
   var latlngbounds = new google.maps.LatLngBounds();
 
+<<<<<<< HEAD
   @foreach($amostras as $sample)
+=======
+
+
+  @foreach($samples as $sample)
+>>>>>>> a98dc323cd6d720e653383dcf2304f3a33060b14
     var marker=new google.maps.Marker({
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
       title: "{{ $sample->date }}"

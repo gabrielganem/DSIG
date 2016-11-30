@@ -3,6 +3,7 @@
 use Cornford\Googlmapper\Exceptions\MapperArgumentException;
 use Cornford\Googlmapper\Exceptions\MapperException;
 use Cornford\Googlmapper\Exceptions\MapperSearchException;
+use Cornford\Googlmapper\Exceptions\MapperSearchLimitException;
 use Cornford\Googlmapper\Exceptions\MapperSearchResultException;
 use Cornford\Googlmapper\Models\Location;
 
@@ -18,6 +19,13 @@ interface MappingInterface {
     public function render($item = -1);
 
     /**
+     * Renders and returns Google Map javascript code.
+     *
+     * @return string
+     */
+    public function renderJavascript();
+
+    /**
      * Locate a location and return a Location instance.
      *
      * @param string $location
@@ -25,6 +33,7 @@ interface MappingInterface {
      * @throws MapperArgumentException
      * @throws MapperSearchException
      * @throws MapperSearchResultException
+     * @throws MapperSearchLimitException
      * @throws MapperException
      *
      * @return Location

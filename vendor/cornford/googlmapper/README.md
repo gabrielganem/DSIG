@@ -92,6 +92,7 @@ This will give you access to
 - [Rectangle](#rectangle)
 - [Circle](#circle)
 - [Render](#render)
+- [RenderJavascript](#renderJavascript)
 
 ### Map
 
@@ -207,7 +208,7 @@ This event is fired when the user stops dragging the marker.
 The `informationWindow` method allows an information window to be added to to a map, with latitude, longitude, content, and optional parameters for options.
 
 	Mapper::informationWindow(53.381128999999990000, -1.470085000000040000, 'Content');
-	Mapper::informationWindow(53.381128999999990000, -1.470085000000040000, 'Content', ['open' => true, 'markers' => ['title' => 'Title']]);
+	Mapper::informationWindow(53.381128999999990000, -1.470085000000040000, 'Content', ['open' => true, 'maxWidth'=> 300, markers' => ['title' => 'Title']]);
 	Mapper::map(52.381128999999990000, 0.470085000000040000)->informationWindow(53.381128999999990000, -1.470085000000040000, 'Content', ['markers' => ['animation' => 'DROP']]);
 
 ### Polyline
@@ -248,6 +249,12 @@ The `render` method allows all maps to be rendered to the page, this method can 
 
 	Mapper::render();
 	Mapper::render(0);
+
+### RenderJavascript
+
+The `renderJavascript` method allows all required javascript to be rendered to the page, this method can be included in Views or added as controller passed parameter.
+
+    Mapper::renderJavascript();
 
 ### License
 
