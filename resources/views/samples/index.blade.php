@@ -1,4 +1,4 @@
-@extends('layouts.sample')
+@extends('layouts.fsample')
 
 @section('content')
 

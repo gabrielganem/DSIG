@@ -25,6 +25,7 @@
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
 
 <script>
+
   var markers = [];
 
 function initialize() {
@@ -38,9 +39,7 @@ function initialize() {
 
   var latlngbounds = new google.maps.LatLngBounds();
 
-
-
-  @foreach($amostra as $sample)
+  @foreach($amostras as $sample)
     var marker=new google.maps.Marker({
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
       title: "{{ $sample->date }}"

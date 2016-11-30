@@ -48,37 +48,38 @@ class SamplesController extends Controller
         $fields = Field::all();
         $amostra = Sample::all();
 
-
         return view('samples.index')->withSamples($amostra)->withProjects($projects)->withLabels($labels)->withFields($fields);
       }
 
       else
       {
-      $samplesdb = DB::table('samples')
-      ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
-      ->get();
+        $samplesdb = DB::table('samples')
+        ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+        ->get();
 
-      $amostra = array();
-        foreach ($label[0]->projects as $project)
-        {
-          foreach ($project->samples as $sample)
+        $amostras = array();
+          foreach ($label[0]->projects as $project)
           {
-
-              foreach($samplesdb as $sampledb)
+            foreach ($project->samples as $sample)
             {
-              if ($sample->id == $sampledb->id)
+                foreach($samplesdb as $sampledb)
               {
-                if(!in_array($sampledb,$amostra)) {$amostra[] = $sampledb;}
+                if ($sample->id == $sampledb->id)
+                {
+                  if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+                }
               }
             }
           }
-        }
+
 
         $labels = Label::all();
         $projects = Project::all();
         $fields = Field::all();
 
-      return view('samples.index')->with(['amostra' => $amostra])->withProjects($projects)->withLabels($labels)->withFields($fields);
+
+      return view('samples.index')->with(['samples' => $amostras])->withProjects($projects)->withLabels($labels)->withFields($fields);
+      //return view('samples.index')->withSamples($samples)->withProjects($projects)->withLabels($labels)->withFields($fields);
     }
   }
     /**
