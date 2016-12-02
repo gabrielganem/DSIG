@@ -38,48 +38,37 @@ class SamplesController extends Controller
 
     public function getAmostraFiltrada(Request $request)
     {
+      $label = Label::where('title','=', $request->label)->first();
 
-      $label = Label::where('title','=', $request->label)->get();
 
-      if(count($label)==0)
-      {
-        $labels = Label::all();
-        $projects = Project::all();
-        $fields = Field::all();
-        $samples = Sample::all();
-
-        return view('samples.index')->withSamples($samples)->withProjects($projects)->withLabels($labels)->withFields($fields);
-      }
-
-      else
-      {
       $samplesdb = DB::table('samples')
       ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
       ->get();
 
-      $amostras = array();
 
-        foreach ($label[0]->projects as $project)
-        {
-          foreach ($project->samples as $sample)
-          {
+          $amostras = array();
 
-              foreach($samplesdb as $sampledb)
+            foreach ($label->projects as $project)
             {
-              if ($sample->id == $sampledb->id)
+              foreach ($project->samples as $sample)
               {
-                if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+
+                  foreach($samplesdb as $sampledb)
+                {
+                  if ($sample->id == $sampledb->id)
+                  {
+                    if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+                  }
+                }
               }
             }
-          }
-        }
 
-        $labels = Label::all();
-        $projects = Project::all();
-        $fields = Field::all();
+            $labels = Label::all();
+            $projects = Project::all();
+            $fields = Field::all();
 
-      return view('samples.index')->with(['amostras' => $amostras])->withProjects($projects)->withLabels($labels)->withFields($fields);
-    }
+          return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);//->withLabels($labels)->withFields($fields);
+
   }
     /**
      * Show the form for creating a new resource.
@@ -161,12 +150,11 @@ class SamplesController extends Controller
 
                   $project->samples()->save($sample);
 
-                  $array = ["date","latitude","longitude"];
+                  $array = ["date","ponto","latitude","longitude"];
                   foreach ($result as $key => $value)
                   {
                     if( !(in_array($key, $array)) )
                     {
-
                        $label = Label::where('title', $key)->first();
                        $field = New Field;
                        $field->label_id = $label->id;
@@ -206,24 +194,32 @@ class SamplesController extends Controller
           {
             $arrayLabel[] = $label->title;
           }
-
           $npontos = $request->npontos;
 
           Excel::create('arquivo_X', function($excel) use($arrayLabel)
           {
             // Set the title
-            $excel->setTitle('Banana');
-
-            $excel->sheet('Sheetname', function($sheet) use($arrayLabel) {
-
-              $array = ["date","latitude","longitude"];
+            $excel->setTitle($project->title." - coleta");
+            $excel->sheet($request->date, function($sheet) use($arrayLabel)
+            {
+              $array = ["date","ponto","latitude","longitude"];
               $arrayLabel = array_merge($array, $arrayLabel);
               $sheet->row(1, $arrayLabel);
 
+              for ($i=0; $i < $npontos; $i++)
+              {
+                for($j=0; $j < $request->n_coleta ; $j++)
+                {
+                  $cell = (2 + ($i*$j)) + $j;
+                  $sheet->row("A".$cell, "teste".$j);
+                }
+              }
             });
 
           })->download('xls');
       }
+
+
 
 /*
             $labels = Label::All();

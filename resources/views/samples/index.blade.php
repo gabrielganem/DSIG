@@ -45,14 +45,7 @@
 
 
 @endforeach
-<div class="table-responsive col-sm-12">
-  <div><h3>Filtro</h3></div>
-  <select id="type" onchange="filterMarkers(this.value);">
-  @foreach($labels as $label)
-      <option value="{{$label->id}}">{{$label->title}}<br>
-  @endforeach
-</select>
-</div>
+
 
 
 <div class="btn-group">
