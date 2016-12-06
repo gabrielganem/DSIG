@@ -134,6 +134,8 @@
 
 <script>
   var markers = [];
+  var map;
+  var latlngbounds;
 
 function initialize() {
   var mapProp = {
@@ -142,9 +144,9 @@ function initialize() {
     mapTypeId:google.maps.MapTypeId.ROADMAP
   };
 
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
-  var latlngbounds = new google.maps.LatLngBounds();
+  latlngbounds = new google.maps.LatLngBounds();
 
 
 
@@ -164,7 +166,35 @@ function initialize() {
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
+function limpaMapa(){
+  markers.forEach(function(markert){
+    markert.setMap(null);
+  })
+}
 
+function   atualizaMapa(data){
+  // limpa marcadores\
+    limpaMapa();
+    markers = [];
+    var marker;
+    //alert('tamanho: '+data.length);
+    data.forEach(function(sample){
+      alert(sample.lat);
+       marker=new google.maps.Marker({
+        position:new google.maps.LatLng([sample.lat, sample.lng]),
+        title: sample.date,
+        map: map
+        });
+    });
+
+//    latlngbounds.extend(marker.position);
+//    map.fitBounds(latlngbounds);
+//    markers.push(marker);
+
+
+//    var markerCluster = new MarkerClusterer(map, markers);
+
+}
 
 
 </script>
@@ -237,13 +267,36 @@ function initialize() {
                   Atributo:
               </li>
               <li>
-                <input type="text" name="label"><br>
+                <input type="text" name="label" id="label"><br>
               </li>
 
               <li>
                 <input type="submit" value="Submit">
               </li>
+
+
             </form>
+
+            <li>
+              <button onclick="carregaAjax(this)">Teste 2</button>
+            </li>
+
+            <script>
+              function carregaAjax(e){
+                var palavra = $('#label').val();
+                  $.get( '/fsamples', { "label":palavra, "json":"true" } )
+                  .done(function(data){
+
+                    atualizaMapa(data);
+
+                  })
+                  .error(function(){
+                    alert('bugou alguma merda!');
+                  });
+
+                  return false;
+              }
+            </script>
           </ul>
       </div>
 

@@ -38,9 +38,10 @@ class SamplesController extends Controller
 
     public function getAmostraFiltrada(Request $request)
     {
-      $label = Label::where('title','=', $request->label)->first();
+            $label = Label::where('title','=', $request->label)->first();
 
 
+      //dd($request);
       $samplesdb = DB::table('samples')
       ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
       ->get();
@@ -67,6 +68,9 @@ class SamplesController extends Controller
             $projects = Project::all();
             $fields = Field::all();
 
+            if ($request->json){
+                return $amostras;
+            }
           return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);//->withLabels($labels)->withFields($fields);
 
   }
