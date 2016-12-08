@@ -129,42 +129,79 @@
     var assetBaseUrl = "{{ asset('') }}";
 </script>
 <script type="text/javascript" src="{{ URL::asset('js/markerclusterer.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/jQDateRangeSlider-min.js') }}"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
 
 <script>
   var markers = [];
+  var map;
+  var latlngbounds;
+  google.maps.event.addDomListener(window, 'load', initialize);
 
-function initialize() {
-  var mapProp = {
-    center:new google.maps.LatLng(-10,-40),
-    zoom:5,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
+  function initialize()
+  {
+      var mapProp = {
+        center:new google.maps.LatLng(-10,-40),
+        zoom:5,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
 
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+      map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+      latlngbounds = new google.maps.LatLngBounds();
+      plotaMapa(map);
 
-  var latlngbounds = new google.maps.LatLngBounds();
 
+  }
 
-
+function plotaMapa()
+{
   @foreach($samples as $sample)
     var marker=new google.maps.Marker({
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
       title: "{{ $sample->date }}"
       });
+
     marker.setMap(map);
     latlngbounds.extend(marker.position);
-    map.fitBounds(latlngbounds);
     markers.push(marker);
-  @endforeach
+    @endforeach
 
-
-  var markerCluster = new MarkerClusterer(map, markers);
+    console.log(markers);
+    map.fitBounds(latlngbounds);
+    var markerCluster = new MarkerClusterer(map, markers);
+}
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
   }
-  google.maps.event.addDomListener(window, 'load', initialize);
+}
 
+function clearMarkers() {
+  setMapOnAll(null);
+}
 
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+
+function atualizaMapa(data){
+  // limpa marcadores\
+  deleteMarkers();
+    var marker;
+    //alert('tamanho: '+data.length);
+    data.forEach(function(sample){
+        marker=new google.maps.Marker({
+        position:new google.maps.LatLng(sample.lat, sample.lng),
+        title: sample.date,
+        map: map,
+        });
+        latlngbounds.extend(marker.position);
+        markers.push(marker);
+    });
+        map.fitBounds(latlngbounds);
+    var markerCluster = new MarkerClusterer(map, markers);
+//    var markerCluster = new MarkerClusterer(map, markers);
+}
 
 
 </script>
@@ -237,13 +274,34 @@ function initialize() {
                   Atributo:
               </li>
               <li>
-                <input type="text" name="label"><br>
+                <input type="text" name="label" id="label"><br>
               </li>
 
               <li>
                 <input type="submit" value="Submit">
               </li>
+
+
             </form>
+
+            <li>
+              <button onclick="carregaAjax(this)">Teste 2</button>
+            </li>
+
+            <script>
+              function carregaAjax(e){
+                var palavra = $('#label').val();
+                  $.get( '/fsamples', { "label":palavra, "json":"true" } )
+                  .done(function(data){
+                    atualizaMapa(data);
+                  })
+                  .error(function(){
+                    alert('Valor não encontrado');
+                  });
+
+                  return false;
+              }
+            </script>
           </ul>
       </div>
 
