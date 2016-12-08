@@ -148,9 +148,12 @@
       map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
       latlngbounds = new google.maps.LatLngBounds();
       plotaMapa(map);
-
-
   }
+
+  function myFunction()
+          {
+              alert("coco");
+          }
 
 function plotaMapa()
 {
@@ -167,7 +170,7 @@ function plotaMapa()
 
     console.log(markers);
     map.fitBounds(latlngbounds);
-    var markerCluster = new MarkerClusterer(map, markers);
+    //var markerCluster = new MarkerClusterer(map, markers);
 }
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
@@ -189,6 +192,7 @@ function atualizaMapa(data){
   deleteMarkers();
     var marker;
     //alert('tamanho: '+data.length);
+
     data.forEach(function(sample){
         marker=new google.maps.Marker({
         position:new google.maps.LatLng(sample.lat, sample.lng),
@@ -199,8 +203,9 @@ function atualizaMapa(data){
         markers.push(marker);
     });
         map.fitBounds(latlngbounds);
-    var markerCluster = new MarkerClusterer(map, markers);
+    //var markerCluster = new MarkerClusterer(map, markers);
 //    var markerCluster = new MarkerClusterer(map, markers);
+
 }
 
 
@@ -263,23 +268,39 @@ function atualizaMapa(data){
   </div>
 
 </nav>
-<div class="container-fluid">
-  <form class="form-horizontal" action="/fsamples" method="get">
-    <div class="form-group">
-        <input placeholder="Pesquise aqui por um parâmetro" oninput="carregaAjax(this)" class="form-control" type="text" name="label" id="label">
-        <button type="submit" class="btn btn-default" onclick="carregaAjax(this)">Teste 2</button>
-    </div>
-  </form>
-</div>
+
             <script>
+            function ObjectLength_Modern( object ) {
+              return Object.keys(object).length;
+            }
+
               function carregaAjax(e){
+                document.getElementById("jserror").innerHTML = "Carregando";
                 var palavra = $('#label').val();
                   $.get( '/fsamples', { "label":palavra, "json":"true" } )
                   .done(function(data){
-                    atualizaMapa(data);
+                    var tamanho = data.length;
+                    if (tamanho)
+                    {
+                      if(tamanho == 1)
+                      {
+                        document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";
+                      }
+                      else
+                        {
+                          document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
+                        }
+                      atualizaMapa(data);
+                      }
+
+                    else {
+                      {
+                        document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
+                      }
+                    }
                   })
                   .error(function(){
-                    return;
+                      document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
                   });
 
                   return false;

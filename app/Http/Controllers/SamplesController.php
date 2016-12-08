@@ -38,41 +38,44 @@ class SamplesController extends Controller
 
     public function getAmostraFiltrada(Request $request)
     {
-            $label = Label::where('title','=', $request->label)->first();
-
-
+      $label = Label::where('title','ilike', $request->label)->first();
+      if($label)
+      {
       //dd($request);
-      $samplesdb = DB::table('samples')
-      ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
-      ->get();
+        $samplesdb = DB::table('samples')
+        ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+        ->get();
 
+            $amostras = array();
 
-          $amostras = array();
-
-            foreach ($label->projects as $project)
-            {
-              foreach ($project->samples as $sample)
+              foreach ($label->projects as $project)
               {
-
-                  foreach($samplesdb as $sampledb)
+                foreach ($project->samples as $sample)
                 {
-                  if ($sample->id == $sampledb->id)
+                    foreach($samplesdb as $sampledb)
                   {
-                    if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+                    if ($sample->id == $sampledb->id)
+                    {
+                      if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+                    }
                   }
                 }
               }
-            }
 
-            $labels = Label::all();
-            $projects = Project::all();
-            $fields = Field::all();
+              $labels = Label::all();
+              $projects = Project::all();
+              $fields = Field::all();
 
-            if ($request->json){
-                return $amostras;
-            }
-          return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);//->withLabels($labels)->withFields($fields);
-
+              if ($request->json){
+                  return $amostras;
+              }
+            return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);//->withLabels($labels)->withFields($fields);
+          }
+        else {
+          $amostras = array();
+          $amostras[0] = null;
+          return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);
+        }
   }
     /**
      * Show the form for creating a new resource.
