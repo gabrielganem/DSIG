@@ -5,17 +5,13 @@
 <div class="col-md-12 text-center" id="googleMap" style="height:680px;"></div>
 <br />
 
-<article style="padding:50px 20px">
-
-<div id="slider"></div>
-
-</article>
 
 
-@foreach ($projects as $project)
+
+@foreach ($samples as $sample)
 
 <div class="table-responsive col-sm-12">
-  <!--<div><h3>{{$project->title}}</h3></div>
+  <div><h3>{{$sample->date}}</h3></div>
 
   <table class="table table-hover table-striped table-condensed">
   <thead>
@@ -23,24 +19,9 @@
     <th>Latitude</th>
     <th>Longitude</th>
   </thead>
-  <tbody>
-  @foreach($project->samples as $sample)
-  <tr>
-      <td>
-        <a href="{{ route('sample.exibeAmostra', array($sample->id, $project->id)) }}">{{$sample->date}}</a>
-      </td>
-      <td>
-        {{$sample->lat}}
-      </td>
-      <td>
-        {{$sample->lng}}
-      </td>
-    </tr>
-  @endforeach
 
-</tbody>
 </table>
--->
+
 </div>
 
 

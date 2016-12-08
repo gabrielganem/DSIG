@@ -259,35 +259,18 @@ function atualizaMapa(data){
               @endif
           </ul>
       </div>
+
   </div>
+
 </nav>
-
-<div id="sidebar-wrapper">
-          <ul class="sidebar-nav">
-              <li class="sidebar-brand">
-                  <a href="#">
-                      Filtro Amostras
-                  </a>
-                  <form action="/fsamples" method="get">
-              </li>
-              <li>
-                  Atributo:
-              </li>
-              <li>
-                <input type="text" name="label" id="label"><br>
-              </li>
-
-              <li>
-                <input type="submit" value="Submit">
-              </li>
-
-
-            </form>
-
-            <li>
-              <button onclick="carregaAjax(this)">Teste 2</button>
-            </li>
-
+<div class="container-fluid">
+  <form class="form-horizontal" action="/fsamples" method="get">
+    <div class="form-group">
+        <input placeholder="Pesquise aqui por um parâmetro" oninput="carregaAjax(this)" class="form-control" type="text" name="label" id="label">
+        <button type="submit" class="btn btn-default" onclick="carregaAjax(this)">Teste 2</button>
+    </div>
+  </form>
+</div>
             <script>
               function carregaAjax(e){
                 var palavra = $('#label').val();
@@ -296,14 +279,12 @@ function atualizaMapa(data){
                     atualizaMapa(data);
                   })
                   .error(function(){
-                    alert('Valor não encontrado');
+                    return;
                   });
 
                   return false;
               }
             </script>
-          </ul>
-      </div>
 
 <main>
 
@@ -322,7 +303,6 @@ function atualizaMapa(data){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
-<!-- Sidebar -->
 
 </body>
 </html>
