@@ -293,11 +293,11 @@ function atualizaMapa(data){
                       atualizaMapa(data);
                       }
 
-                    else {
+                    else
                       {
-                        document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
+                        document.getElementById("jserror").innerHTML = "0 Objeto Encontrado";
                       }
-                    }
+
                   })
                   .error(function(){
                       document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
