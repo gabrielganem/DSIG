@@ -22,7 +22,7 @@
 <div class="table-responsive col-sm-12">
   <div><h3>{{$sample->date}}</h3></div>
 
-  <table class="table table-hover table-striped table-condensed">
+  <table id ="myTable" class="table table-hover table-striped table-condensed">
   <thead>
     <th>Data</th>
     <th>Latitude</th>
@@ -33,9 +33,7 @@
 
 </div>
 
-
 @endforeach
-
 
 
 <div class="btn-group">

@@ -17,84 +17,9 @@
 
 
 <style>
-#sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 0;
-    height: 100%;
-    margin: 0px;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #FFF;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-    width: 250px;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    position: absolute;
-    padding: 15px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -250px;
-}
 
 /* Sidebar Styles */
 
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 250px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.sidebar-nav li {
-    text-indent: 20px;
-    line-height: 25px;
-}
-
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #999999;
-}
-
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
-    background: rgba(255,255,255,0.2);
-}
-
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    text-decoration: none;
-}
-
-.sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
-}
-
-.sidebar-nav > .sidebar-brand a {
-    color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
-    background: none;
-}
 
 @media(min-width:768px) {
     #wrapper {
@@ -137,6 +62,25 @@
   var latlngbounds;
   google.maps.event.addDomListener(window, 'load', initialize);
 
+    function clearTable()
+    {
+      var table = document.getElementById("myTable");
+      table.innerHTML = "";
+    }
+
+    function addRow(data)
+    {
+      var table = document.getElementById("myTable");
+      @foreach ($projects as $project)
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = data.lat;
+        cell2.innerHTML = "{{$project->title}}";
+      @endforeach
+    }
+
+
   function initialize()
   {
       var mapProp = {
@@ -149,11 +93,6 @@
       latlngbounds = new google.maps.LatLngBounds();
       plotaMapa(map);
   }
-
-  function myFunction()
-          {
-              alert("coco");
-          }
 
 function plotaMapa()
 {
@@ -192,17 +131,19 @@ function atualizaMapa(data){
   deleteMarkers();
     var marker;
     //alert('tamanho: '+data.length);
-
+    clearTable();
     data.forEach(function(sample){
         marker=new google.maps.Marker({
-        position:new google.maps.LatLng(sample.lat, sample.lng),
-        title: sample.date,
-        map: map,
+          position:new google.maps.LatLng(sample.lat, sample.lng),
+          title: sample.date,
+          map: map,
         });
+        addRow(sample);
         latlngbounds.extend(marker.position);
         markers.push(marker);
     });
         map.fitBounds(latlngbounds);
+
     //var markerCluster = new MarkerClusterer(map, markers);
 //    var markerCluster = new MarkerClusterer(map, markers);
 
