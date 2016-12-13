@@ -15,7 +15,7 @@
 <div  class="col-md-12 text-center" id="googleMap" style="height:680px;"></div>
 <br />
 
-
+<!--
 
 @foreach ($samples as $sample)
 
@@ -29,12 +29,17 @@
     <th>Longitude</th>
   </thead>
 
+  <tbody>
+
+  </tbody>
+
 </table>
 
 </div>
 
 @endforeach
 
+-->
 
 <div class="btn-group">
 <a href="{{ route('projects.index') }}" class="btn btn-info">Voltar para Projetos</a>

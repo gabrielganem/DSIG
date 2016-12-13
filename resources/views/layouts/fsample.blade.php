@@ -131,14 +131,14 @@ function atualizaMapa(data){
   deleteMarkers();
     var marker;
     //alert('tamanho: '+data.length);
-    clearTable();
+    //clearTable();
     data.forEach(function(sample){
         marker=new google.maps.Marker({
           position:new google.maps.LatLng(sample.lat, sample.lng),
           title: sample.date,
           map: map,
         });
-        addRow(sample);
+        //addRow(sample);
         latlngbounds.extend(marker.position);
         markers.push(marker);
     });
