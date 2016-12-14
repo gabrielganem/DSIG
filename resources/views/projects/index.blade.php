@@ -6,7 +6,6 @@
 <p class="lead">Estes são os seus projetos <a href="{{ route('projects.create')}}">Criar um novo?</a></p>
 <hr>
 
-
 </article>
 @foreach($projects as $project)
     <h3>{{ $project->title }}</h3>
