@@ -47,9 +47,11 @@ class SamplesController extends Controller
         ->get();
 
             $amostras = array();
+            $projetos = array();
 
               foreach ($label->projects as $project)
               {
+                $projetos[] = $project;
                 foreach ($project->samples as $sample)
                 {
                     foreach($samplesdb as $sampledb)
@@ -63,13 +65,15 @@ class SamplesController extends Controller
               }
 
               $labels = Label::all();
-              $projects = Project::all();
+
               $fields = Field::all();
 
-              if ($request->json){
+              if ($request->json)
+              {
                   return $amostras;
               }
-            return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);//->withLabels($labels)->withFields($fields);
+
+            return view('samples.index')->with(['samples' => $amostras])->with(['projects' => $projetos]);//->withLabels($labels)->withFields($fields);
           }
         else {
           $amostras = array();
