@@ -47,11 +47,11 @@ class SamplesController extends Controller
         ->get();
 
             $amostras = array();
-            $projetos = array();
+            //$projetos = array();
 
               foreach ($label->projects as $project)
               {
-                $projetos[] = $project;
+                //$projetos[] = $project;
                 foreach ($project->samples as $sample)
                 {
                     foreach($samplesdb as $sampledb)
@@ -65,20 +65,40 @@ class SamplesController extends Controller
               }
 
               $labels = Label::all();
-
+              $projects = Project::all();
               $fields = Field::all();
+
+              $data = array();
+              $data["projetos"] = $projects;
+              $data["amostras"] = $amostras;
 
               if ($request->json)
               {
-                  return $amostras;
+                  return $data;
               }
-
-            return view('samples.index')->with(['samples' => $amostras])->with(['projects' => $projetos]);//->withLabels($labels)->withFields($fields);
+              else {
+                return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);//->withLabels($labels)->withFields($fields);
+              }
           }
-        else {
+        else
+        {
+          $projects = Project::all();
           $amostras = array();
-          $amostras[0] = null;
-          return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);
+          $amostras = null;
+
+          $data = array();
+          $data["projetos"] = $projects;
+          $data["amostras"] = $amostras;
+
+          if ($request->json)
+          {
+              return $data;
+          }
+
+          else
+          {
+            return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);
+          }
         }
   }
     /**
