@@ -226,9 +226,10 @@ function atualizaMapa(data){
                   $.get( '/fsamples', { "label":palavra, "json":"true" } )
                   .done(function(data){
 
-                          var tamanho = data.amostras.length;
-                          if (tamanho)
+                          //var tamanho = data.amostras.length;
+                          if (data.amostras)
                           {
+                            var tamanho = data.amostras.length;
                             if(tamanho == 1)
                             {
                               document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";

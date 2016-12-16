@@ -15,7 +15,7 @@
 <div  class="col-md-12 text-center" id="googleMap" style="height:680px;"></div>
 <br />
 
-<<<<<<< HEAD
+
 
 @foreach ($projects as $project)
 
@@ -62,8 +62,7 @@
 @endforeach
 
 -->
-=======
->>>>>>> 3dd2a266b52fd3b29b1642cc8b14b38b4de8a05e
+
 
 <div class="btn-group">
 <a href="{{ route('projects.index') }}" class="btn btn-info">Voltar para Projetos</a>
