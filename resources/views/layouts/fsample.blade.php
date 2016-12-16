@@ -132,6 +132,9 @@ function atualizaMapa(data){
     var marker;
     //alert('tamanho: '+data.length);
     //clearTable();
+
+    if(data)
+    {
     data.forEach(function(sample){
         marker=new google.maps.Marker({
           position:new google.maps.LatLng(sample.lat, sample.lng),
@@ -141,8 +144,10 @@ function atualizaMapa(data){
         //addRow(sample);
         latlngbounds.extend(marker.position);
         markers.push(marker);
+
     });
-        map.fitBounds(latlngbounds);
+  }
+    map.fitBounds(latlngbounds);
 
     //var markerCluster = new MarkerClusterer(map, markers);
 //    var markerCluster = new MarkerClusterer(map, markers);
@@ -220,33 +225,33 @@ function atualizaMapa(data){
                 var palavra = $('#label').val();
                   $.get( '/fsamples', { "label":palavra, "json":"true" } )
                   .done(function(data){
-                    var tamanho = data.length;
-                    if (tamanho)
-                    {
-                      if(tamanho == 1)
-                      {
-                        document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";
-                      }
-                      else
-                        {
-                          document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
-                        }
-                      atualizaMapa(data);
-                      }
 
-                    else
-                      {
-                        document.getElementById("jserror").innerHTML = "0 Objeto Encontrado";
-                      }
+                          var tamanho = data.amostras.length;
+                          if (tamanho)
+                          {
+                            if(tamanho == 1)
+                            {
+                              document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";
+                            }
+                            else
+                              {
+                                document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
+                              }
+                            atualizaMapa(data["amostras"]);
+                            }
+                          else
+                            {
+                              document.getElementById("jserror").innerHTML = "0 Objeto Encontrado";
+                            }
+                        })
+                        .error(function(){
+                            alert("banana");
+                            document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
+                        });
+                        return false;
+                    }
+                  </script>
 
-                  })
-                  .error(function(){
-                      document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
-                  });
-
-                  return false;
-              }
-            </script>
 
 <main>
 
