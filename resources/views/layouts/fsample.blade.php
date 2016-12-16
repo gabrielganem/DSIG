@@ -70,14 +70,15 @@
 
     function addRow(data)
     {
+      clearTable();
       var table = document.getElementById("myTable");
-      @foreach ($projects as $project)
+      data.forEach(function(projetos) {
         var row = table.insertRow(-1);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
-        cell1.innerHTML = data.lat;
-        cell2.innerHTML = "{{$project->title}}";
-      @endforeach
+        cell1.innerHTML = projetos.title;
+        cell2.innerHTML = "BANANA";
+      });
     }
 
 
@@ -126,7 +127,13 @@ function deleteMarkers() {
   markers = [];
 }
 
-function atualizaMapa(data){
+function atualizaTabela(data)
+{
+  addRow(data);
+}
+
+function atualizaMapa(data)
+{
   // limpa marcadores\
   deleteMarkers();
     var marker;
@@ -239,6 +246,7 @@ function atualizaMapa(data){
                                 document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
                               }
                             atualizaMapa(data["amostras"]);
+                            atualizaTabela(data["projetos"]);
                             }
                           else
                             {

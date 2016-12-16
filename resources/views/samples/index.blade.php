@@ -12,29 +12,29 @@
 <p id="jserror">
   Comece a pesquisar agora!
 </p>
-<div  class="col-md-12 text-center" id="googleMap" style="height:680px;"></div>
-<br />
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-3 col-sm-4 col-md-0 col-lg-0">
+      <div class="table-responsive col-sm-12">
+        <div><h3>Projetos Relacionados</h3></div>
 
+        <table class="table table-hover table-striped table-condensed" id="myTable">
+        <thead>
+          <th>Nome</th>
+          <th>Autor</th>
+        </thead>
+      </table>
 
-@foreach ($projects as $project)
+      </div>
+    </div>
 
-<div class="table-responsive col-sm-12">
-  <div><h3>{{$project->title}}</h3></div>
-
-  <table class="table table-hover table-striped table-condensed">
-  <thead>
-    <th>Data</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
-  </thead>
-
-</table>
-
+    <div class="span10">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="googleMap" style="height:680px;"></div>
+      <br />
+    </div>
+  </div>
 </div>
-
-
-@endforeach
 
 
 <!--

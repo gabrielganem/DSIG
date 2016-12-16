@@ -47,11 +47,11 @@ class SamplesController extends Controller
         ->get();
 
             $amostras = array();
-            //$projetos = array();
+            $projetos = array();
 
               foreach ($label->projects as $project)
               {
-                //$projetos[] = $project;
+                $projetos[] = $project;
                 foreach ($project->samples as $sample)
                 {
                     foreach($samplesdb as $sampledb)
@@ -69,7 +69,7 @@ class SamplesController extends Controller
               $fields = Field::all();
 
               $data = array();
-              $data["projetos"] = $projects;
+              $data["projetos"] = $projetos;
               $data["amostras"] = $amostras;
 
               if ($request->json)
