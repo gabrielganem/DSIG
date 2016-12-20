@@ -234,11 +234,11 @@ class SamplesController extends Controller
           }
           $npontos = $request->npontos;
 
-          Excel::create('arquivo_X', function($excel) use($arrayLabel)
+          Excel::create('arquivo_X', function($excel) use($arrayLabel, $request, $npontos, $project)
           {
             // Set the title
-            $excel->setTitle($project->title." - coleta");
-            $excel->sheet($request->date, function($sheet) use($arrayLabel)
+            $excel->setTitle($project->title);
+            $excel->sheet("sheet_1", function($sheet) use($arrayLabel, $npontos, $request)
             {
               $array = ["date","ponto","latitude","longitude"];
               $arrayLabel = array_merge($array, $arrayLabel);
@@ -246,19 +246,50 @@ class SamplesController extends Controller
 
               for ($i=0; $i < $npontos; $i++)
               {
-                for($j=0; $j < $request->n_coleta ; $j++)
+                for($j=0; $j < $request->n_coleta; $j++)
                 {
-                  $cell = (2 + ($i*$j)) + $j;
-                  $sheet->row("A".$cell, "teste".$j);
+                  $n_celula = (2 + ($i*$request->n_coleta)) + $j;
+                  $celula = "A".$n_celula;
+                  $date = new \DateTime($request->date);
+
+                  $frequencia = ($request->frequencia*(($i*$request->n_coleta)+ $j))." days";
+                  date_add($date, date_interval_create_from_date_string($frequencia));
+
+                  $valor_celula = date_format($date, 'd-m-Y H:i');
+
+                  $sheet->cell($celula, function($cell) use($j, $valor_celula) {
+                      $cell->setValue($valor_celula);
+                  });
+
+                  $celula = "B".$n_celula;
+                  $ponto = "name-".$i;
+
+                  $valor_celula = $request->$ponto;
+                  $sheet->cell($celula, function($cell) use($j, $valor_celula) {
+                      $cell->setValue($valor_celula);
+                  });
+
+                  $celula = "C".$n_celula;
+                  $ponto = "x-".$i;
+
+                  $valor_celula = $request->$ponto;
+                  $sheet->cell($celula, function($cell) use($j, $valor_celula) {
+                      $cell->setValue($valor_celula);
+                  });
+
+                  $celula = "D".$n_celula;
+                  $ponto = "y-".$i;
+
+                  $valor_celula = $request->$ponto;
+                  $sheet->cell($celula, function($cell) use($j, $valor_celula) {
+                      $cell->setValue($valor_celula);
+                  });
                 }
               }
             });
 
           })->download('xls');
       }
-
-
-
 /*
             $labels = Label::All();
             $projects = Project::All();

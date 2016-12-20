@@ -153,13 +153,14 @@ function atualizaMapa(data)
         var infowindow = new google.maps.InfoWindow(), marker;
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
+            return function()
+            {
               data["projetos"].forEach(function(projeto)
                 {
                   if (projeto.id == sample.project_id)
                   {
                     var str = "";
-                    str += projeto.title + "<br />";
+                    str +=  projeto.title + "<br />";
                     data["campos"].forEach(function(campo){
                       if(campo.sample_id == sample.id)
                       {
