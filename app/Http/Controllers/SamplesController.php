@@ -41,13 +41,14 @@ class SamplesController extends Controller
       $label = Label::where('title','ilike', $request->label)->first();
       if($label)
       {
-      //dd($request);
+      //dd($requeist);
         $samplesdb = DB::table('samples')
-        ->select(DB::raw('id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+        ->select(DB::raw('id,project_id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
         ->get();
 
             $amostras = array();
             $projetos = array();
+            $campos = array();
 
               foreach ($label->projects as $project)
               {
@@ -59,6 +60,10 @@ class SamplesController extends Controller
                     if ($sample->id == $sampledb->id)
                     {
                       if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+                      foreach ($sample->fields as $field)
+                      {
+                        $campos[] = $field;
+                      }
                     }
                   }
                 }
@@ -71,6 +76,8 @@ class SamplesController extends Controller
               $data = array();
               $data["projetos"] = $projetos;
               $data["amostras"] = $amostras;
+              $data["campos"] = $campos;
+              $data["etiquetas"] = $labels;
 
               if ($request->json)
               {

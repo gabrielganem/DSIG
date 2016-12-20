@@ -73,11 +73,11 @@
       clearTable();
       var table = document.getElementById("myTable");
       data.forEach(function(projetos) {
-        var row = table.insertRow(-1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        cell1.innerHTML = projetos.title;
-        cell2.innerHTML = "BANANA";
+          var row = table.insertRow(-1);
+          var cell1 = row.insertCell(0);
+
+          cell1.innerHTML = '<a href="projects/'+ projetos.id +'">' + projetos.title + '</a>';
+
       });
     }
 
@@ -140,14 +140,44 @@ function atualizaMapa(data)
     //alert('tamanho: '+data.length);
     //clearTable();
 
-    if(data)
+    if(data["amostras"])
     {
-    data.forEach(function(sample){
+    data["amostras"].forEach(function(sample){
         marker=new google.maps.Marker({
           position:new google.maps.LatLng(sample.lat, sample.lng),
           title: sample.date,
           map: map,
+
         });
+
+        var infowindow = new google.maps.InfoWindow(), marker;
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+              data["projetos"].forEach(function(projeto)
+                {
+                  if (projeto.id == sample.project_id)
+                  {
+                    var str = "";
+                    str += projeto.title + "<br />";
+                    data["campos"].forEach(function(campo){
+                      if(campo.sample_id == sample.id)
+                      {
+                        data["etiquetas"].forEach(function(etiqueta)
+                        {
+                          if(etiqueta.id == campo.label_id)
+                          {
+                            str += etiqueta.title + " : " + campo.value + "<br />";
+                          }
+                        })
+                      }
+                    })
+                    infowindow.setContent(str);
+                  }
+                })
+                infowindow.open(map, marker);
+            }
+        })(marker))
         //addRow(sample);
         latlngbounds.extend(marker.position);
         markers.push(marker);
@@ -245,7 +275,7 @@ function atualizaMapa(data)
                               {
                                 document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
                               }
-                            atualizaMapa(data["amostras"]);
+                            atualizaMapa(data);
                             atualizaTabela(data["projetos"]);
                             }
                           else

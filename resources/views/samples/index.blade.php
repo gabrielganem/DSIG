@@ -20,10 +20,6 @@
         <div><h3>Projetos Relacionados</h3></div>
 
         <table class="table table-hover table-striped table-condensed" id="myTable">
-        <thead>
-          <th>Nome</th>
-          <th>Autor</th>
-        </thead>
       </table>
 
       </div>
