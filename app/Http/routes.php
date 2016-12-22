@@ -31,6 +31,12 @@ Route::get('/fsamples',[
   'uses' => 'SamplesController@getAmostraFiltrada'
 ]);
 
+Route::get('/flabels',[
+  'as' => 'label.filteredLabels',
+  'uses' => 'LabelsController@getLabelsFiltrada'
+]);
+
+
 Route::resource('institutes', 'InstitutesController');
 
 //AUTH

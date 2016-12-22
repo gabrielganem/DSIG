@@ -292,6 +292,47 @@ function atualizaMapa(data)
                     }
                   </script>
 
+                  <script>
+                  function showResult(e) {
+
+                    var palavra = $('#label').val();
+                      $.get( '/flabels', { "label":palavra, "json":"true" } )
+                      .done(function(data){
+                              //var tamanho = data.amostras.length;
+                              if (data)
+                              {
+                                console.log(data);
+                                var tamanho = data.length;
+                                if(tamanho == 1)
+                                {
+                                  document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento banana";
+                                }
+
+                                else
+                                  {
+                                    data.forEach(function(label) {
+                                      document.getElementById("livesearch").innerHTML=label.title;
+                                      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+                                    });
+                                //atualizaMapa(data);
+                                //atualizaTabela(data["projetos"]);
+                                }
+                              }
+                              else
+                                {
+                                  document.getElementById("livesearch").innerHTML="";
+                                  document.getElementById("livesearch").style.border="0px";
+                                  return;
+                                }
+                            })
+                            .error(function(){
+                                alert("banana");
+                                document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado banana";
+                            });
+                            return false;
+                  }
+                  </script>
+
 
 <main>
 

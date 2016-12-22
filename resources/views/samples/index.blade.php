@@ -33,31 +33,19 @@
 </div>
 
 
-<!--
+___
 
-@foreach ($samples as $sample)
 
-<div class="table-responsive col-sm-12">
-  <div><h3>{{$sample->date}}</h3></div>
 
-  <table id ="myTable" class="table table-hover table-striped table-condensed">
-  <thead>
-    <th>Data</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
-  </thead>
 
-  <tbody>
+<form class="form-horizontal" action="/flabels" method="get" autocomplete="off">
+<input type="text" size="30" onkeyup="showResult(this.value)">
+<div id="livesearch"></div>
+</form>
 
-  </tbody>
+</body>
+</html>
 
-</table>
-
-</div>
-
-@endforeach
-
--->
 
 
 <div class="btn-group">

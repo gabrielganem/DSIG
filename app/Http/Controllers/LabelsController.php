@@ -57,6 +57,28 @@ class LabelsController extends Controller
         return redirect()->back();
     }
 
+    public function getLabelsFiltrada(Request $request)
+    {
+      //$label = array();
+      $void = array();
+      $void[] = "";
+      //$label = Label::where('title','ilike', "$request->label")->first();
+      $label = Label::all();
+      if($label)
+      {
+          //console.log($label);
+          if ($request->json)
+          {
+              return $label;
+          }
+        }
+      else
+        {
+              return "ola";//return $void;
+        }
+  }
+
+
     /**
      * Display the specified resource.
      *
