@@ -36,13 +36,11 @@
 ___
 
 
+<script src="https://code.highcharts.com/highcharts.js"></script>
 
 
-<form class="form-horizontal" action="/flabels" method="get" autocomplete="off">
-<input type="text" size="30" onkeyup="showResult(this.value)">
-<div id="livesearch"></div>
-</form>
-
+<div id="container" style="height: 400px; width: 510px"></div>
+  <div id="container2" style="height: 400px; width: 510px"></div>
 </body>
 </html>
 

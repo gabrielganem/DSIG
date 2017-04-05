@@ -7,6 +7,70 @@
 
 <title>DSIG</title>
 
+<!-- -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<style type="text/css">
+${demo.css}
+</style>
+<script type="text/javascript">
+
+$(function()
+{
+    Highcharts.setOptions(
+      {
+        chart: {
+            backgroundColor: {
+                linearGradient: [0, 0, 500, 500],
+                stops: [
+                    [0, 'rgb(255, 255, 255)'],
+                    [1, 'rgb(240, 240, 255)']
+                    ]
+            },
+            borderWidth: 4,
+            plotBackgroundColor: 'rgba(255, 255, 255, .9)',
+            plotShadow: true,
+            plotBorderWidth: 1
+        }
+    });
+
+    var chart1 = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container',
+        },
+
+        xAxis: {
+            type: 'datetime'
+        },
+
+        series: [{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            pointStart: Date.UTC(2010, 0, 1),
+            pointInterval: 3600 * 1000 // one hour
+        }]
+    });
+
+
+    var chart2 = new Highcharts.Chart({
+        chart: {
+            renderTo: 'container2',
+            type: 'column'
+        },
+
+        xAxis: {
+            type: 'datetime'
+        },
+
+        series: [{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            pointStart: Date.UTC(2010, 0, 1),
+            pointInterval: 3600 * 1000 // one hour
+        }]
+    });
+});
+</script>
+<!-- -->
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
@@ -17,32 +81,24 @@
 
 
 <style>
-
 /* Sidebar Styles */
-
-
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
     }
-
     #wrapper.toggled {
         padding-left: 0;
     }
-
     #sidebar-wrapper {
         width: 250px;
     }
-
     #wrapper.toggled #sidebar-wrapper {
         width: 0;
     }
-
     #page-content-wrapper {
         padding: 20px;
         position: relative;
     }
-
     #wrapper.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
@@ -61,13 +117,11 @@
   var map;
   var latlngbounds;
   google.maps.event.addDomListener(window, 'load', initialize);
-
     function clearTable()
     {
       var table = document.getElementById("myTable");
       table.innerHTML = "";
     }
-
     function addRow(data)
     {
       clearTable();
@@ -75,13 +129,9 @@
       data.forEach(function(projetos) {
           var row = table.insertRow(-1);
           var cell1 = row.insertCell(0);
-
           cell1.innerHTML = '<a href="projects/'+ projetos.id +'">' + projetos.title + '</a>';
-
       });
     }
-
-
   function initialize()
   {
       var mapProp = {
@@ -89,12 +139,10 @@
         zoom:5,
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
-
       map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
       latlngbounds = new google.maps.LatLngBounds();
       plotaMapa(map);
   }
-
 function plotaMapa()
 {
   @foreach($samples as $sample)
@@ -102,12 +150,10 @@ function plotaMapa()
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
       title: "{{ $sample->date }}"
       });
-
     marker.setMap(map);
     latlngbounds.extend(marker.position);
     markers.push(marker);
     @endforeach
-
     console.log(markers);
     map.fitBounds(latlngbounds);
     //var markerCluster = new MarkerClusterer(map, markers);
@@ -117,21 +163,17 @@ function setMapOnAll(map) {
     markers[i].setMap(map);
   }
 }
-
 function clearMarkers() {
   setMapOnAll(null);
 }
-
 function deleteMarkers() {
   clearMarkers();
   markers = [];
 }
-
 function atualizaTabela(data)
 {
   addRow(data);
 }
-
 function atualizaMapa(data)
 {
   // limpa marcadores\
@@ -139,7 +181,6 @@ function atualizaMapa(data)
     var marker;
     //alert('tamanho: '+data.length);
     //clearTable();
-
     if(data["amostras"])
     {
     data["amostras"].forEach(function(sample){
@@ -147,11 +188,8 @@ function atualizaMapa(data)
           position:new google.maps.LatLng(sample.lat, sample.lng),
           title: sample.date,
           map: map,
-
         });
-
         var infowindow = new google.maps.InfoWindow(), marker;
-
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function()
             {
@@ -182,17 +220,12 @@ function atualizaMapa(data)
         //addRow(sample);
         latlngbounds.extend(marker.position);
         markers.push(marker);
-
     });
   }
     map.fitBounds(latlngbounds);
-
     //var markerCluster = new MarkerClusterer(map, markers);
 //    var markerCluster = new MarkerClusterer(map, markers);
-
 }
-
-
 </script>
 
 
@@ -200,7 +233,6 @@ function atualizaMapa(data)
     body {
         font-family: 'Lato';
     }
-
     .fa-btn {
         margin-right: 6px;
     }
@@ -257,13 +289,11 @@ function atualizaMapa(data)
             function ObjectLength_Modern( object ) {
               return Object.keys(object).length;
             }
-
               function carregaAjax(e){
                 document.getElementById("jserror").innerHTML = "Carregando";
                 var palavra = $('#label').val();
                   $.get( '/fsamples', { "label":palavra, "json":"true" } )
                   .done(function(data){
-
                           //var tamanho = data.amostras.length;
                           if (data.amostras)
                           {
@@ -294,7 +324,6 @@ function atualizaMapa(data)
 
                   <script>
                   function showResult(e) {
-
                     var palavra = $('#label').val();
                       $.get( '/flabels', { "label":palavra, "json":"true" } )
                       .done(function(data){
@@ -307,7 +336,6 @@ function atualizaMapa(data)
                                 {
                                   document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento banana";
                                 }
-
                                 else
                                   {
                                     data.forEach(function(label) {
