@@ -205,7 +205,9 @@ function atualizaMapa(data)
     //clearTable();
     if(data["amostras"])
     {
-    var infowindow = new google.maps.InfoWindow(), marker;
+    var infowindow = new google.maps.InfoWindow({
+      content: ''
+    });
     data["amostras"].forEach(function(sample){
           marker=new google.maps.Marker({
           position:new google.maps.LatLng(sample.lat, sample.lng),
