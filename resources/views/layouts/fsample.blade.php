@@ -146,34 +146,56 @@ $(function()
 function plotaMapa()
 {
   @foreach($samples as $sample)
-    var marker=new google.maps.Marker({
-      position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
-      title: "{{ $sample->date }}"
-      });
-    marker.setMap(map);
-    latlngbounds.extend(marker.position);
-    markers.push(marker);
+      var marker=new google.maps.Marker({
+        position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
+        title: "{{ $sample->date }}"
+        });
+
+        var infowindow = new google.maps.InfoWindow(), marker;
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function()
+            {
+                    var str = "coco";
+                    infowindow.setContent(str);
+                    infowindow.open(map, marker);
+            }
+        })(marker))
+
+      marker.setMap(map);
+      latlngbounds.extend(marker.position);
+      markers.push(marker);
+
+      google.maps.event.addListener(map, 'click', function() {
+  infowindow.close();
+});
     @endforeach
     console.log(markers);
     map.fitBounds(latlngbounds);
     //var markerCluster = new MarkerClusterer(map, markers);
 }
-function setMapOnAll(map) {
+function setMapOnAll(map)
+{
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
 }
-function clearMarkers() {
+
+function clearMarkers()
+{
   setMapOnAll(null);
 }
-function deleteMarkers() {
+
+function deleteMarkers()
+{
   clearMarkers();
   markers = [];
 }
+
 function atualizaTabela(data)
 {
   addRow(data);
 }
+
 function atualizaMapa(data)
 {
   // limpa marcadores\
@@ -183,21 +205,23 @@ function atualizaMapa(data)
     //clearTable();
     if(data["amostras"])
     {
+    var infowindow = new google.maps.InfoWindow(), marker;
     data["amostras"].forEach(function(sample){
-        marker=new google.maps.Marker({
+          marker=new google.maps.Marker({
           position:new google.maps.LatLng(sample.lat, sample.lng),
           title: sample.date,
           map: map,
         });
-        var infowindow = new google.maps.InfoWindow(), marker;
+
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function()
             {
+              var str = "";
               data["projetos"].forEach(function(projeto)
                 {
                   if (projeto.id == sample.project_id)
                   {
-                    var str = "";
+                    //var str = "";
                     str +=  projeto.title + "<br />";
                     data["campos"].forEach(function(campo){
                       if(campo.sample_id == sample.id)
@@ -218,10 +242,12 @@ function atualizaMapa(data)
             }
         })(marker))
         //addRow(sample);
+        marker.setMap(map);
         latlngbounds.extend(marker.position);
         markers.push(marker);
     });
   }
+      console.log(markers);
     map.fitBounds(latlngbounds);
     //var markerCluster = new MarkerClusterer(map, markers);
 //    var markerCluster = new MarkerClusterer(map, markers);

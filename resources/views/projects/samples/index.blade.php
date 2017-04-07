@@ -46,7 +46,7 @@
 
 <div class="btn-group">
   <a href="{{ route('projects.index') }}" class="btn btn-info">Voltasr para Projetos</a>
-  <a href="{{ route('projects.edit', $projects->id) }}" class="btn btn-primary">Edssitar Projeto</a>
+  <a href="{{ route('projects.edit', $projects->id) }}" class="btn btn-primary">Editar Projeto</a>
   <a href="{{ route('sample.novaAmostra', $projects->id) }}" class="btn btn-primary">Adicionar Amostra</a>
 </div>
 
