@@ -313,81 +313,88 @@ function atualizaMapa(data)
 
 </nav>
 
-            <script>
-            function ObjectLength_Modern( object ) {
-              return Object.keys(object).length;
-            }
-              function carregaAjax(e){
-                document.getElementById("jserror").innerHTML = "Carregando";
-                var palavra = $('#label').val();
-                  $.get( '/fsamples', { "label":palavra, "json":"true" } )
-                  .done(function(data){
-                          //var tamanho = data.amostras.length;
-                          if (data.amostras)
-                          {
-                            var tamanho = data.amostras.length;
-                            if(tamanho == 1)
-                            {
-                              document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";
-                            }
-                            else
-                              {
-                                document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
-                              }
-                            atualizaMapa(data);
-                            atualizaTabela(data["projetos"]);
-                            }
-                          else
-                            {
-                              document.getElementById("jserror").innerHTML = "0 Objeto Encontrado";
-                            }
-                        })
-                        .error(function(){
-                            alert("banana");
-                            document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
-                        });
-                        return false;
-                    }
-                  </script>
+  <script>
+  function ObjectLength_Modern( object )
+  {
+    return Object.keys(object).length;
+  }
+    function carregaAjax(e)
+    {
+      document.getElementById("jserror").innerHTML = "Carregando";
 
-                  <script>
-                  function showResult(e) {
-                    var palavra = $('#label').val();
-                      $.get( '/flabels', { "label":palavra, "json":"true" } )
-                      .done(function(data){
-                              //var tamanho = data.amostras.length;
-                              if (data)
-                              {
-                                console.log(data);
-                                var tamanho = data.length;
-                                if(tamanho == 1)
-                                {
-                                  document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento banana";
-                                }
-                                else
-                                  {
-                                    data.forEach(function(label) {
-                                      document.getElementById("livesearch").innerHTML=label.title;
-                                      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
-                                    });
-                                //atualizaMapa(data);
-                                //atualizaTabela(data["projetos"]);
-                                }
-                              }
-                              else
-                                {
-                                  document.getElementById("livesearch").innerHTML="";
-                                  document.getElementById("livesearch").style.border="0px";
-                                  return;
-                                }
-                            })
-                            .error(function(){
-                                alert("banana");
-                                document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado banana";
-                            });
-                            return false;
+      var termoDeBusca = $('#label').val();
+        $.get( '/fsamples', { "label":termoDeBusca, "json":"true" } )
+        .done(function(data)
+        {
+                //var tamanho = data.amostras.length;
+                if (data.amostras)
+                {
+                  var tamanho = data.amostras.length;
+                  if(tamanho == 1)
+                  {
+                    document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";
                   }
-                  </script>
+                  else
+                    {
+                      document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
+                    }
+                  atualizaMapa(data);
+                  atualizaTabela(data["projetos"]);
+                  }
+                else
+                  {
+                    document.getElementById("jserror").innerHTML = "0 Objeto Encontrado";
+                  }
+              })
+              .error(function(){
+                  alert("banana");
+                  document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
+              });
+              return false;
+          }
+        </script>
+
+        <script>
+        function showResult(e)
+        {
+          var palavra = $('#label').val();
+            $.get( '/flabels', { "label":palavra, "json":"true" } )
+            .done(function(data)
+            {
+                    //var tamanho = data.amostras.length;
+                    if (data)
+                    {
+                      console.log(data);
+                      var tamanho = data.length;
+                      if(tamanho == 1)
+                      {
+                        document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento banana";
+                      }
+                      else
+                        {
+                          data.forEach(function(label)
+                          {
+                            document.getElementById("livesearch").innerHTML=label.title;
+                            document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+                          });
+                      //atualizaMapa(data);
+                      //atualizaTabela(data["projetos"]);
+                      }
+                    }
+                    else
+                      {
+                        document.getElementById("livesearch").innerHTML="";
+                        document.getElementById("livesearch").style.border="0px";
+                        return;
+                      }
+                  })
+                  .error(function(){
+                      alert("banana");
+                      document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado banana";
+                  });
+                  return false;
+        }
+        </script>
 
 
 <main>
