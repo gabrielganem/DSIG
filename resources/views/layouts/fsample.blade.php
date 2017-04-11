@@ -160,7 +160,6 @@ function plotaMapa()
                     infowindow.open(map, marker);
             }
         })(marker))
-
       marker.setMap(map);
       latlngbounds.extend(marker.position);
       markers.push(marker);
@@ -169,6 +168,8 @@ function plotaMapa()
   infowindow.close();
 });
     @endforeach
+    var markerCluster = new MarkerClusterer(map, markers);
+
     console.log(markers);
     map.fitBounds(latlngbounds);
     //var markerCluster = new MarkerClusterer(map, markers);
@@ -183,6 +184,7 @@ function setMapOnAll(map)
 function clearMarkers()
 {
   setMapOnAll(null);
+  clearClusterer();
 }
 
 function deleteMarkers()
@@ -200,6 +202,8 @@ function atualizaMapa(data)
 {
   // limpa marcadores\
   deleteMarkers();
+  markerCluster.setMap(null);
+
     var marker;
     //alert('tamanho: '+data.length);
     //clearTable();
@@ -249,11 +253,12 @@ function atualizaMapa(data)
         markers.push(marker);
     });
   }
-      console.log(markers);
+    var markerCluster = new MarkerClusterer(map, markers);
+    console.log(markers);
     map.fitBounds(latlngbounds);
-    //var markerCluster = new MarkerClusterer(map, markers);
 //    var markerCluster = new MarkerClusterer(map, markers);
 }
+
 </script>
 
 
