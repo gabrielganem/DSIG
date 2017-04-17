@@ -122,6 +122,7 @@ $(function()
       var table = document.getElementById("myTable");
       table.innerHTML = "";
     }
+    
     function addRow(data)
     {
       clearTable();
@@ -132,6 +133,7 @@ $(function()
           cell1.innerHTML = '<a href="projects/'+ projetos.id +'">' + projetos.title + '</a>';
       });
     }
+
   function initialize()
   {
       var mapProp = {
@@ -143,6 +145,7 @@ $(function()
       latlngbounds = new google.maps.LatLngBounds();
       plotaMapa(map);
   }
+
 function plotaMapa()
 {
   @foreach($samples as $sample)
@@ -393,9 +396,10 @@ function atualizaMapa(data)
                         return;
                       }
                   })
-                  .error(function(){
+                  .error(function()
+                  {
                       alert("banana");
-                      document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado banana";
+                      document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado banana ss";
                   });
                   return false;
         }
