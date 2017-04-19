@@ -25,7 +25,7 @@
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
 
 <script>
-
+/*
   var markers = [];
 
 function initialize() {
@@ -38,11 +38,6 @@ function initialize() {
   var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
   var latlngbounds = new google.maps.LatLngBounds();
-
-
-
-
-
 
   @foreach($samples as $sample)
     var marker=new google.maps.Marker({
@@ -61,7 +56,48 @@ function initialize() {
   google.maps.event.addDomListener(window, 'load', initialize);
 
 
+*/
 
+function showResult(e)
+{
+  var palavra = 'SX%%^2xx';
+    $.get( '/flabels', { "label":palavra, "json":"true" } )
+    .done(function(data)
+    {
+            //var tamanho = data.amostras.length;
+            if (data)
+            {
+              console.log(data);
+              var tamanho = data.length;
+              if(tamanho == 1)
+              {
+                document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento banana";
+              }
+              else
+                {
+                  data.forEach(function(label)
+                  {
+                    document.getElementById("livesearch").innerHTML=label.title;
+                    document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+                  });
+              //atualizaMapa(data);
+              //atualizaTabela(data["projetos"]);
+              }
+            }
+            else
+              {
+                document.getElementById("livesearch").innerHTML="";
+                document.getElementById("livesearch").style.border="0px";
+                return;
+              }
+          })
+          .error(function()
+          {
+              alert("banana");
+              document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado banana ss";
+          });
+          return false;
+}
 
 </script>
 

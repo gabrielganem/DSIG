@@ -1,4 +1,4 @@
-@extends('layouts.fsample')
+@extends('layouts.fsamplebeta')
 
 @section('content')
 <div class="container-fluid">

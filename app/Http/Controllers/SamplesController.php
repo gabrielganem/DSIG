@@ -24,8 +24,57 @@ class SamplesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function getTodasAmostras()
     {
+        $labels = Label::all();
+
+        $samplesdb = DB::table('samples')
+        ->select(DB::raw('id,project_id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+        ->get();
+
+      //  $label = array();
+        $amostras = array();
+        $projetos = array();
+        $campos = array();
+
+        foreach ($labels as $label)
+        {
+          foreach ($label->projects as $project)
+          {
+            $projetos[] = $project;
+            foreach ($project->samples as $sample)
+            {
+                foreach($samplesdb as $sampledb)
+              {
+                if ($sample->id == $sampledb->id)
+                {
+                  if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+                  foreach ($sample->fields as $field)
+                  {
+                    $campos[] = $field;
+                  }
+                }
+              }
+            }
+          }
+      }
+
+        $labels = Label::all();
+        $projects = Project::all();
+        $fields = Field::all();
+
+        $data = array();
+        $data["projetos"] = $projetos;
+        $data["amostras"] = $amostras;
+        $data["campos"] = $campos;
+        $data["etiquetas"] = $labels;
+
+        return view('samples.index')->with($data);
+      }
+/*
+      else
+      {
         $labels = Label::all();
         $fields = Field::all();
         $samples = DB::table('samples')
@@ -33,12 +82,14 @@ class SamplesController extends Controller
         ->get();
         $projects = Project::all();
 
-      return view('samples.index')->withSamples($samples)->withProjects($projects)->withLabels($labels)->withFields($fields);
-    }
+        return view('samples.index')->withSamples($samples)->withProjects($projects)->withLabels($labels)->withFields($fields);
+      }*/
+
 
     public function getAmostraFiltrada(Request $request)
     {
       $label = Label::where('title','ilike', $request->label)->first();
+
       if($label)
       {
       //dd($requeist);
@@ -84,7 +135,7 @@ class SamplesController extends Controller
                   return $data;
               }
               else {
-                return view('samples.index')->with(['samples' => $amostras])->withProjects($projects);//->withLabels($labels)->withFields($fields);
+                return view('samples.index')->with(['samples' => $amostras])->withProjects($projects)->withLabels($labels)->withFields($fields);
               }
           }
         else
