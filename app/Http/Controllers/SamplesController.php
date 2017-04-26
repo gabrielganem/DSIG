@@ -70,7 +70,9 @@ class SamplesController extends Controller
         $data["campos"] = $campos;
         $data["etiquetas"] = $labels;
 
-        return view('samples.index')->with($data);
+        dd($data);
+
+        return view('samples.index')->with(['amostras' => $amostras]);
       }
 /*
       else

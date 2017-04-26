@@ -148,19 +148,18 @@ $(function()
 
 function plotaMapa2()
 {
-
-
   //Descobre se existe elementos na pesquisa e quantos são
     //Função para atualizar os dots no mapa
 
-      alert("BANANA");
+      //alert("BANANA");
       document.getElementById("jserror").innerHTML = "Carregando";
-
-        $.get( '/samples', {"json":"true" } )
+      //alert("BANANETE");
+        $.get( '/samples' , { "label":termoDeBusca, "json":"true" })
         .done(function(data)
         {
                 if (data.amostras)
                 {
+                  alert("BANANETE");
                   var tamanho = data.amostras.length;
                   if(tamanho == 1)
                   {
@@ -179,7 +178,7 @@ function plotaMapa2()
                   }
               })
               .error(function(){
-                  alert("banana");
+                  alert("bananaerror");
                   document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado";
               });
               return false;
