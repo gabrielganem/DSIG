@@ -154,7 +154,7 @@ function plotaMapa2()
       //alert("BANANA");
       document.getElementById("jserror").innerHTML = "Carregando";
       //alert("BANANETE");
-        $.get( '/samples' , { "label":termoDeBusca, "json":"true" })
+        $.get( '/samples' ,{"json":"true" })
         .done(function(data)
         {
                 if (data.amostras)
@@ -169,7 +169,7 @@ function plotaMapa2()
                     {
                       document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
                     }
-                  atualizaMapa(data, map);
+                  atualizaMapa(data);
                   atualizaTabela(data["projetos"]);
                   }
                 else
@@ -194,7 +194,6 @@ function setMapOnAll(map)
 function clearMarkers()
 {
   setMapOnAll(null);
-  clearClusterer();
 }
 
 function deleteMarkers()
@@ -211,14 +210,14 @@ function atualizaTabela(data)
 function atualizaMapa(data)
 {
   // limpa marcadores\
-  deleteMarkers();
-  markerCluster.setMap(null);
-
+  //deleteMarkers();
     var marker;
+    alert("FEZES");
     //alert('tamanho: '+data.length);
     //clearTable();
-    if(data["amostras"])
+    if(data.amostras)
     {
+
     var infowindow = new google.maps.InfoWindow({
       content: ''
     });

@@ -25,7 +25,7 @@ class SamplesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getTodasAmostras()
+    public function getTodasAmostras(Request $request)
     {
         $labels = Label::all();
 
@@ -49,7 +49,10 @@ class SamplesController extends Controller
               {
                 if ($sample->id == $sampledb->id)
                 {
-                  if(!in_array($sampledb,$amostras)) {$amostras[] = $sampledb;}
+                  if(!in_array($sampledb,$amostras))
+                  {
+                    $amostras[] = $sampledb;
+                  }
                   foreach ($sample->fields as $field)
                   {
                     $campos[] = $field;
@@ -70,9 +73,15 @@ class SamplesController extends Controller
         $data["campos"] = $campos;
         $data["etiquetas"] = $labels;
 
-        dd($data);
-
-        return view('samples.index')->with(['amostras' => $amostras]);
+        //dd($data);
+        if ($request->json)
+        {
+            return $data;
+        }
+        else
+        {
+          return view('samples.index');
+        }
       }
 /*
       else
