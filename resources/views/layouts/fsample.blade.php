@@ -404,9 +404,9 @@ function atualizaMapa(data)
         </script>
 
 
-<main>
+<main style="width: 100%; height: 100%;">
 
-    <div class="container">
+    <div class="container" style="width: 100%; height: 100%;">
 
     @if(Session::has('flash_message'))
         <div class="alert alert-success">

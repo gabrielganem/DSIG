@@ -12,63 +12,6 @@
 <style type="text/css">
 ${demo.css}
 </style>
-<script type="text/javascript">
-
-$(function()
-{
-    Highcharts.setOptions(
-      {
-        chart: {
-            backgroundColor: {
-                linearGradient: [0, 0, 500, 500],
-                stops: [
-                    [0, 'rgb(255, 255, 255)'],
-                    [1, 'rgb(240, 240, 255)']
-                    ]
-            },
-            borderWidth: 4,
-            plotBackgroundColor: 'rgba(255, 255, 255, .9)',
-            plotShadow: true,
-            plotBorderWidth: 1
-        }
-    });
-
-    var chart1 = new Highcharts.Chart({
-        chart: {
-            renderTo: 'container',
-        },
-
-        xAxis: {
-            type: 'datetime'
-        },
-
-        series: [{
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-            pointStart: Date.UTC(2010, 0, 1),
-            pointInterval: 3600 * 1000 // one hour
-        }]
-    });
-
-
-    var chart2 = new Highcharts.Chart({
-        chart: {
-            renderTo: 'container2',
-            type: 'column'
-        },
-
-        xAxis: {
-            type: 'datetime'
-        },
-
-        series: [{
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-            pointStart: Date.UTC(2010, 0, 1),
-            pointInterval: 3600 * 1000 // one hour
-        }]
-    });
-});
-</script>
-<!-- -->
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -82,6 +25,10 @@ $(function()
 
 <style>
 /* Sidebar Styles */
+
+div#content {
+  width: 100%; height: 100%;
+}
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
@@ -104,6 +51,7 @@ $(function()
         margin-right: 0;
     }
 }
+
 </style>
 
 <script>
@@ -141,29 +89,29 @@ $(function()
         zoom:5,
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
-      map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+      map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
       latlngbounds = new google.maps.LatLngBounds();
       plotaMapa2(map);
   }
 
-function plotaMapa2()
+function plotaMapa2(map)
 {
   //Descobre se existe elementos na pesquisa e quantos são
     //Função para atualizar os dots no mapa
 
+
       //alert("BANANA");
       document.getElementById("jserror").innerHTML = "Carregando";
-      //alert("BANANETE");
-        $.get( '/samples' ,{"json":"true" })
+
+        $.get( '/samples' , {"json":"true"})
         .done(function(data)
         {
                 if (data.amostras)
                 {
-                  alert("BANANETE");
                   var tamanho = data.amostras.length;
                   if(tamanho == 1)
                   {
-                    document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";
+                    document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento"  ;
                   }
                   else
                     {
@@ -188,16 +136,20 @@ function setMapOnAll(map)
 {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
+
   }
 }
 
+
 function clearMarkers()
 {
+//  markerCluster.clearMarkers();
   setMapOnAll(null);
 }
 
 function deleteMarkers()
 {
+  //markerCluster.setMap(null);
   clearMarkers();
   markers = [];
 }
@@ -210,9 +162,9 @@ function atualizaTabela(data)
 function atualizaMapa(data)
 {
   // limpa marcadores\
-  //deleteMarkers();
+  deleteMarkers();
     var marker;
-    alert("FEZES");
+    //alert("FEZES");
     //alert('tamanho: '+data.length);
     //clearTable();
     if(data.amostras)
@@ -221,8 +173,9 @@ function atualizaMapa(data)
     var infowindow = new google.maps.InfoWindow({
       content: ''
     });
-    data["amostras"].forEach(function(sample){
-          marker=new google.maps.Marker({
+    data["amostras"].forEach(function(sample)
+    {
+          marker = new google.maps.Marker({
           position:new google.maps.LatLng(sample.lat, sample.lng),
           title: sample.date,
           map: map,
@@ -262,11 +215,13 @@ function atualizaMapa(data)
         markers.push(marker);
     });
   }
-    var markerCluster = new MarkerClusterer(map, markers);
+
+
     console.log(markers);
     map.fitBounds(latlngbounds);
-//    var markerCluster = new MarkerClusterer(map, markers);
+  // var markerCluster = new MarkerClusterer(map, markers);
 }
+
 
 </script>
 
@@ -277,6 +232,11 @@ function atualizaMapa(data)
     }
     .fa-btn {
         margin-right: 6px;
+    }
+
+    body, html, main {
+      height: 100%;
+      width: 100%;
     }
 </style>
 </head>
@@ -415,9 +375,9 @@ function atualizaMapa(data)
         </script>
 
 
-<main>
+<main style="width: 100%; height: 100%;">
 
-    <div class="container">
+    <div class="container" style="width: 100%; height: 100%;">
 
     @if(Session::has('flash_message'))
         <div class="alert alert-success">

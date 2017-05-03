@@ -13,8 +13,8 @@
   Comece a pesquisar agora!
 </p>
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid" style="width: 100%; height: 100%;">
+  <div class="row" style="height:100%; width: 100%;">
     <div class="col-xs-3 col-sm-4 col-md-0 col-lg-0">
       <div class="table-responsive col-sm-12">
         <div><h3>Projetos Relacionados</h3></div>
@@ -25,22 +25,16 @@
       </div>
     </div>
 
-    <div class="span10">
-      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="googleMap" style="height:680px;"></div>
-      <br />
+    <div style="height:100%; width: 100%; z-index: -1;">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="googleMap" style="height:100%; width: 100%; z-index: -1;">
+      </div>
     </div>
   </div>
 </div>
 
 
-___
-
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
-
-<div id="container" style="height: 400px; width: 510px"></div>
-  <div id="container2" style="height: 400px; width: 510px"></div>
 </body>
 </html>
 
