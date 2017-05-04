@@ -13,20 +13,22 @@
   Comece a pesquisar agora!
 </p>
 
-<div class="container-fluid" style="width: 100%; height: 100%;">
-  <div class="row" style="height:100%; width: 100%;">
-    <div class="col-xs-3 col-sm-4 col-md-0 col-lg-0">
-      <div class="table-responsive col-sm-12">
-        <div><h3>Projetos Relacionados</h3></div>
+<div class="container-fluid" style="width: 100%; height: 100%; ">
+  <div class="row" style="height:100%; width: 100%;  position: relative;">
+
+
+    <div style="height:100%; width: 100%;">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="googleMap" style="height:100%; width: 100%;">
+      </div>
+    </div>
+
+    <div class="col-xs-3 col-sm-4 col-md-0 col-lg-0" style="position: absolute; top: 0; z-index: 99; background-color: #FFF; opacity: 0.8; border-radius: 25px; margin: 10px;">
+      <div class="table-responsive col-sm-12" >
+        <div ><h3>Projetos Relacionados</h3></div>
 
         <table class="table table-hover table-striped table-condensed" id="myTable">
       </table>
 
-      </div>
-    </div>
-
-    <div style="height:100%; width: 100%; z-index: -1;">
-      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="googleMap" style="height:100%; width: 100%; z-index: -1;">
       </div>
     </div>
   </div>
