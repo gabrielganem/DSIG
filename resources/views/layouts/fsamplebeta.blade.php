@@ -134,9 +134,9 @@ function plotaMapa2(map)
 }
 function setMapOnAll(map)
 {
-  for (var i = 0; i < markers.length; i++) {
+  for (var i = 0; i < markers.length; i++)
+  {
     markers[i].setMap(map);
-
   }
 }
 
