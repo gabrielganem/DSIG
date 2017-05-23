@@ -33,7 +33,7 @@ class SamplesController extends Controller
         ->select(DB::raw('id,project_id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
         ->get();
 
-      //  $label = array();
+        // $label = array();
         $amostras = array();
         $projetos = array();
         $campos = array();
@@ -49,10 +49,7 @@ class SamplesController extends Controller
               {
                 if ($sample->id == $sampledb->id)
                 {
-                  if(!in_array($sampledb,$amostras))
-                  {
-                    $amostras[] = $sampledb;
-                  }
+                  if(!in_array($sampledb,$amostras)){ $amostras[] = $sampledb;}
                   foreach ($sample->fields as $field)
                   {
                     $campos[] = $field;

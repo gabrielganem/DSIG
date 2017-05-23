@@ -184,12 +184,11 @@ function atualizaMapa(data)
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function()
             {
-              var str = "";
+              var str = '';
               data["projetos"].forEach(function(projeto)
                 {
                   if (projeto.id == sample.project_id)
                   {
-                    //var str = "";
                     str +=  projeto.title + "<br />";
                     data["campos"].forEach(function(campo){
                       if(campo.sample_id == sample.id)
@@ -203,9 +202,10 @@ function atualizaMapa(data)
                         })
                       }
                     })
-                    infowindow.setContent(str);
+
                   }
                 })
+                infowindow.setContent(str);
                 infowindow.open(map, marker);
             }
         })(marker))
