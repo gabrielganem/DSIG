@@ -43,9 +43,10 @@ class SamplesController extends Controller
           foreach ($label->projects as $project)
           {
             $projetos[] = $project;
+
             foreach ($project->samples as $sample)
             {
-                foreach($samplesdb as $sampledb)
+                foreach ($samplesdb as $sampledb)
               {
                 if ($sample->id == $sampledb->id)
                 {
