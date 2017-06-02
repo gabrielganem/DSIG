@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 <title>DSIG</title>
 
@@ -13,12 +14,16 @@
 ${demo.css}
 </style>
 
+<script>
+    var assetBaseUrl = "{{ asset('') }}";
+</script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
 <!-- Styles -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link href="{{ URL::asset('css/mdb.min.css') }}" rel="stylesheet">
+
 <link rel="stylesheet" href="{{ URL::asset('js/iThing.css') }}">
 {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
@@ -54,9 +59,7 @@ div#content {
 
 </style>
 
-<script>
-    var assetBaseUrl = "{{ asset('') }}";
-</script>
+
 <script type="text/javascript" src="{{ URL::asset('js/markerclusterer.js') }}"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
 
@@ -184,12 +187,11 @@ function atualizaMapa(data)
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function()
             {
-              var str = "";
+              var str = '';
               data["projetos"].forEach(function(projeto)
                 {
                   if (projeto.id == sample.project_id)
                   {
-                    //var str = "";
                     str +=  projeto.title + "<br />";
                     data["campos"].forEach(function(campo){
                       if(campo.sample_id == sample.id)
@@ -203,9 +205,10 @@ function atualizaMapa(data)
                         })
                       }
                     })
-                    infowindow.setContent(str);
+
                   }
                 })
+                infowindow.setContent(str);
                 infowindow.open(map, marker);
             }
         })(marker))
@@ -227,9 +230,6 @@ function atualizaMapa(data)
 
 
 <style>
-    body {
-        font-family: 'Lato';
-    }
     .fa-btn {
         margin-right: 6px;
     }
