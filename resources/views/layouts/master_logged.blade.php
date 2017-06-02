@@ -17,6 +17,10 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+        body {
+          background-image: url("/images/bg.jpg");
+        }
     </style>
 </head>
 <body id="app-layout">
