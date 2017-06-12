@@ -93,6 +93,61 @@ class SamplesController extends Controller
         return view('samples.index')->withSamples($samples)->withProjects($projects)->withLabels($labels)->withFields($fields);
       }*/
 
+      public function getTodasAmostrasLocal(Request $request)
+      {
+          $labels = Label::all();
+
+          $samplesdb = DB::table('samples')
+          ->select(DB::raw('id,project_id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+          ->get();
+
+          // $label = array();
+          $amostras = array();
+          $projetos = array();
+          $campos = array();
+
+          foreach ($labels as $label)
+          {
+            foreach ($label->projects as $project)
+            {
+              $projetos[] = $project;
+              foreach ($project->samples as $sample)
+              {
+                  foreach($samplesdb as $sampledb)
+                {
+                  if ($sample->id == $sampledb->id)
+                  {
+                    if(!in_array($sampledb,$amostras)){ $amostras[] = $sampledb;}
+                    foreach ($sample->fields as $field)
+                    {
+                      $campos[] = $field;
+                    }
+                  }
+                }
+              }
+            }
+        }
+
+          $labels = Label::all();
+          $projects = Project::all();
+          $fields = Field::all();
+
+          $data = array();
+          $data["projetos"] = $projetos;
+          $data["amostras"] = $amostras;
+          $data["campos"] = $campos;
+          $data["etiquetas"] = $labels;
+
+          //dd($data);
+          if ($request->json)
+          {
+              return $data;
+          }
+          else
+          {
+            return view('samples.index');
+          }
+        }
 
     public function getAmostraFiltrada(Request $request)
     {

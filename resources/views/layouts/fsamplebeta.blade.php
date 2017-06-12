@@ -181,6 +181,7 @@ function atualizaMapa(data)
           marker = new google.maps.Marker({
           position:new google.maps.LatLng(sample.lat, sample.lng),
           title: sample.date,
+          icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Push-Pin-1-Right-Pink-icon.png',
           map: map,
         });
 
@@ -375,9 +376,9 @@ function atualizaMapa(data)
         </script>
 
 
-<main style="width: 100%; height: 100%;">
+<main>
 
-    <div class="container" style="width: 100%; height: 100%;">
+    <div class="container" style="width: 100%; height: 75%;">
 
     @if(Session::has('flash_message'))
         <div class="alert alert-success">
