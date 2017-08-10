@@ -16,6 +16,7 @@
 {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
 
+
 <script>
     var assetBaseUrl = "{{ asset('') }}";
 </script>
@@ -24,10 +25,7 @@
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAM4ZjSrVS2FPwzQ7kpeBBZoVK49tvcMZg"></script>
 
 <script>
-  $("#slider").rangeSlider();
-</script>
-
-<script>
+/*
   var markers = [];
 
 function initialize() {
@@ -41,8 +39,6 @@ function initialize() {
 
   var latlngbounds = new google.maps.LatLngBounds();
 
-
-
   @foreach($samples as $sample)
     var marker=new google.maps.Marker({
       position:new google.maps.LatLng({{$sample->lat}}, {{$sample->lng}}),
@@ -54,25 +50,54 @@ function initialize() {
     markers.push(marker);
   @endforeach
 
+
   var markerCluster = new MarkerClusterer(map, markers);
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
-filterMarkers = function (category) {
 
-      for (i = 0; i < markers1.length; i++) {
-          marker = markes[i];
-          // If is same category or category not picked
-          if (marker.title < date1 || marker.title > date0) {
-              marker.setVisible(true);
-          }
-          // Categories don't match
-          else {
-              marker.setVisible(false);
-          }
-      }
-  }
+*/
 
+function showResult(e)
+{
+  var palavra = 'SX%%^2xx';
+    $.get( '/flabels', { "label":palavra, "json":"true" } )
+    .done(function(data)
+    {
+            //var tamanho = data.amostras.length;
+            if (data)
+            {
+              console.log(data);
+              var tamanho = data.length;
+              if(tamanho == 1)
+              {
+                document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento banana";
+              }
+              else
+                {
+                  data.forEach(function(label)
+                  {
+                    document.getElementById("livesearch").innerHTML=label.title;
+                    document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+                  });
+              //atualizaMapa(data);
+              //atualizaTabela(data["projetos"]);
+              }
+            }
+            else
+              {
+                document.getElementById("livesearch").innerHTML="";
+                document.getElementById("livesearch").style.border="0px";
+                return;
+              }
+          })
+          .error(function()
+          {
+              alert("banana");
+              document.getElementById("jserror").innerHTML = "Nenhum Objeto Encontrado banana ss";
+          });
+          return false;
+}
 
 </script>
 
@@ -110,7 +135,6 @@ filterMarkers = function (category) {
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
           <!-- Left Side Of Navbar -->
 
-
           <!-- Right Side Of Navbar -->
           <ul class="nav navbar-nav navbar-right">
               <!-- Authentication Links -->
@@ -133,7 +157,10 @@ filterMarkers = function (category) {
   </div>
 </nav>
 
+
+
 <main>
+
     <div class="container">
 
     @if(Session::has('flash_message'))
@@ -149,6 +176,7 @@ filterMarkers = function (category) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
+<!-- Sidebar -->
 
 </body>
 </html>

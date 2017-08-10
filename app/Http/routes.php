@@ -18,16 +18,50 @@ Route::get('/', [
 
 Route::get('/home', 'PagesController@home');
 
+
+
 Route::resource('samples', 'SamplesController');
-Route::controller('sample', 'SamplesController');
 Route::get('/samples',[
   'as' => 'sample.amostras',
   'uses' => 'SamplesController@getTodasAmostras'
 ]);
+Route::controller('sample', 'SamplesController');
 
-Route::auth();
+Route::get('/fsamples',[
+  'as' => 'sample.filteredAmostras',
+  'uses' => 'SamplesController@getAlgo'
+]);
+
+
+Route::get('/flabels',[
+  'as' => 'label.filteredLabels',
+  'uses' => 'LabelsController@getLabelsFiltrada'
+]);
+
+
+Route::resource('institutes', 'InstitutesController');
+
+//AUTH
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Route::get('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@showLoginForm']);
+Route::post('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@login']);
+Route::get('logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@logout']);
+
+// Registration Routes...
+Route::get('register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@showRegistrationForm']);
+Route::post('register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@register']);
+
+// Password Reset Routes...
+Route::get('password/reset/{token?}', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@showResetForm']);
+Route::post('password/email', ['as' => 'auth.password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail']);
+Route::post('password/reset', ['as' => 'auth.password.reset', 'uses' => 'Auth\PasswordController@reset']);
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Route::group(['middleware' => 'auth'], function () {
+
+
+
   Route::resource('projects', 'ProjectsController');
 
   Route::resource('labels', 'LabelsController');

@@ -25,7 +25,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function project () {
-      return $this->hasMany(Project::class);
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->withPivot('role');
+    }
+
+    public function institute ()
+    {
+      return $this->belongsTo(Institute::class);
     }
 }

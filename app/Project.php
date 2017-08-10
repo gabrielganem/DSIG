@@ -22,11 +22,11 @@ class Project extends Model
 
     public function samples()
     {
-      return $this->hasMany(Sample::class);
+        return $this->hasMany(Sample::class);
     }
 
-    public function user()
+    public function users()
     {
-      return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class)->withPivot('role');
     }
 }

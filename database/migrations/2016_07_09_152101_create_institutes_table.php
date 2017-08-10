@@ -16,6 +16,7 @@ class CreateInstitutesTable extends Migration
           $table->increments('id');
           $table->timestamps();
           $table->text('name');
+          $table->text('abreviature');
       });
 
       DB::unprepared("ALTER TABLE institutes ADD COLUMN geom GEOMETRY(POINT, 4326)");

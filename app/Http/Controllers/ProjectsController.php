@@ -7,9 +7,11 @@ use App\Http\Requests;
 use App\Project;
 use App\Sample;
 use App\Label;
+use App\User;
 use App\Intermediate;
 use Session;
 use DB;
+use Auth;
 
 
 
@@ -22,7 +24,10 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $project = Project::all();
+        $user = Auth::user();
+
+        $project = $user->projects()->where('user_id', $user->id)->get();
+        //$project = Project::all()->where('project_id', $id);
 
         return view('projects.index')->withProjects($project);
     }
