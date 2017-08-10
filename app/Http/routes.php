@@ -29,7 +29,7 @@ Route::controller('sample', 'SamplesController');
 
 Route::get('/fsamples',[
   'as' => 'sample.filteredAmostras',
-  'uses' => 'SamplesController@getAmostraFiltrada'
+  'uses' => 'SamplesController@getAlgo'
 ]);
 
 

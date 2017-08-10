@@ -10,6 +10,10 @@
 
 <!-- -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
 <style type="text/css">
 ${demo.css}
 </style>
@@ -67,6 +71,9 @@ div#content {
   var markers = [];
   var map;
   var latlngbounds;
+  var infowindow = new google.maps.InfoWindow({
+    content: ''
+  });
   google.maps.event.addDomListener(window, 'load', initialize);
     function clearTable()
     {
@@ -135,6 +142,8 @@ function plotaMapa2(map)
               return false;
 
 }
+
+
 function setMapOnAll(map)
 {
   for (var i = 0; i < markers.length; i++)
@@ -161,6 +170,88 @@ function atualizaTabela(data)
 {
   addRow(data);
 }
+
+
+
+
+
+
+function atualizaMapex(data)
+{
+
+  var chart = new Highcharts.chart('caixa', {
+      chart: {},
+      plotOptions: {
+          series: {
+              allowPointSelect: true
+          }
+      },
+      series: [{
+          data: []
+      }]
+  });
+
+    deleteMarkers();
+    var marker;
+    var vetor = [];
+    if(data)
+    {
+          for(i = 0; i < data.length; i++){
+            vetor.push(parseFloat(data[i].field.value));
+          //  var chart = $('#caixa').highcharts();
+
+
+                marker = new google.maps.Marker(
+                {
+                  position:new google.maps.LatLng(data[i].sample.lat, data[i].sample.lng),
+                  title: data[i].sample.date,
+                  icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Push-Pin-1-Right-Pink-icon.png',
+                  map: map,
+                  projeto: data[i].projeto.title,
+                  etiqueta: data[i].label.title,
+                  value: data[i].field.value,
+                  lat: data[i].sample.lat,
+                  lng: data[i].sample.lng,
+              });
+
+              google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                  return function()
+                  {
+                    str = markers[i].projeto + ' <br  />' + markers[i].etiqueta + ' - ' + markers[i].value;
+                    for(j = 0; j <  markers.length; j++){
+                      if(i != j)
+                        if((markers[j].lat == markers[i].lat) && (markers[j].lng == markers[i].lng)){
+                          str +=  ' <br  />' + '----------------' + ' <br  />';
+                          str += markers[j].projeto + ' <br  />' + markers[j].etiqueta + ' - ' + markers[j].value;
+                        }
+                    }
+
+                    infowindow.setContent(str);
+                    infowindow.open(map, marker, markers[i].projeto);
+                  }
+              })(marker, i))
+              //addRow(sample);
+
+
+              marker.setMap(map);
+              latlngbounds.extend(marker.position);
+              markers.push(marker);
+      }
+
+
+    }
+
+    console.log(vetor);
+    chart.series[0].setData(vetor);
+
+    console.log(markers);
+    map.fitBounds(latlngbounds);
+}
+
+
+
+
+
 
 function atualizaMapa(data)
 {
@@ -220,7 +311,6 @@ function atualizaMapa(data)
     });
   }
 
-
     console.log(markers);
     map.fitBounds(latlngbounds);
   // var markerCluster = new MarkerClusterer(map, markers);
@@ -228,6 +318,9 @@ function atualizaMapa(data)
 
 
 </script>
+
+
+
 
 
 <style>
@@ -242,6 +335,8 @@ function atualizaMapa(data)
 </style>
 </head>
 <body>
+
+
 
 <nav class="navbar navbar-default navbar-static-top">
   <div class="container">
@@ -295,9 +390,25 @@ function atualizaMapa(data)
     return Object.keys(object).length;
   }
 
+
+  function getObjectLength(obj)
+  {
+    var length = 0;
+    for ( var sample in obj )
+    {
+      if ( obj.hasOwnProperty( sample ) )
+      {
+        length++;
+      }
+    }
+    return length;
+  }
+
+
   //Função para atualizar os dots no mapa
     function carregaAjax(e)
     {
+
       document.getElementById("jserror").innerHTML = "Carregando";
 
       var termoDeBusca = $('#label').val();
@@ -305,9 +416,11 @@ function atualizaMapa(data)
         .done(function(data)
         {
                 //var tamanho = data.amostras.length;
-                if (data.amostras)
+                if (data[1])
                 {
-                  var tamanho = data.amostras.length;
+                  console.log(data.length);
+                  var tamanho = getObjectLength(data);
+
                   if(tamanho == 1)
                   {
                     document.getElementById("jserror").innerHTML = "Encontrado "+tamanho+" elemento";
@@ -316,8 +429,8 @@ function atualizaMapa(data)
                     {
                       document.getElementById("jserror").innerHTML = "Encontrados "+tamanho+" elementos";
                     }
-                  atualizaMapa(data);
-                  atualizaTabela(data["projetos"]);
+                  atualizaMapex(data);
+                  //atualizaTabela(data["projetos"]);
                   }
                 else
                   {
@@ -342,6 +455,7 @@ function atualizaMapa(data)
                   //var tamanho = data.amostras.length;
                   if (data)
                   {
+
                     console.log(data);
                     var tamanho = data.length;
                     if(tamanho == 1)
@@ -373,6 +487,27 @@ function atualizaMapa(data)
                 });
                 return false;
         }
+        </script>
+
+
+
+  <div id="caixa" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+        <script type='text/javascript'>
+
+
+        //]]>
+
+        </script>
+
+          <script>
+          // tell the embed parent frame the height of the content
+          if (window.parent && window.parent.parent){
+            window.parent.parent.postMessage(["resultsFrame", {
+              height: document.body.getBoundingClientRect().height,
+              slug: "None"
+            }], "*")
+          }
         </script>
 
 

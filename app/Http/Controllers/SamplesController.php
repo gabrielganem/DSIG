@@ -233,6 +233,48 @@ class SamplesController extends Controller
         return view('samples.create');
     }*/
 
+public function getAlgo(Request $request){
+  $fields = Field::all();
+  $i = 0;
+  $data = array();
+  $parametros = $request->all();
+
+  $samplesdb = DB::table('samples')
+  ->select(DB::raw('id,project_id,ST_X(geom) as lng, ST_Y(geom) AS lat, date'))
+  ->get();
+
+  $labelComp = Label::where('title','ilike', $parametros['label'])->first();
+  if($labelComp)
+  {
+  foreach ($fields as $field) {
+
+    if ($field->label->title == $labelComp['title'])
+    {
+      $data[$i]['projeto'] = $field->sample->project;
+      $data[$i]['sample'] = $field->sample;
+      $data[$i]['label'] = $field->label;
+      $data[$i]['field'] = $field;
+      $i++;
+    }
+  }
+//dd($samplesdb);
+
+  for ($n=0; $n < $i; $n++) {
+    for ($j=0; $j < sizeof($samplesdb); $j++) {
+      if($data[$n]['sample']->id == $samplesdb[$j]->id){
+        $data[$n]['sample'] = $samplesdb[$j];
+        break;
+      }
+    }
+  }
+}
+
+        //dd($data);
+return $data;
+
+}
+
+
     public function getAdiciona($id)
     {
       $projects = Project::findOrFail($id);

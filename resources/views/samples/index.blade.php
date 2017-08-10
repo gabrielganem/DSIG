@@ -32,7 +32,6 @@
   </div>
 
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
 
 <div class="btn-group">
 <a href="{{ route('projects.index') }}" class="btn btn-info">Voltar para Projetos</a>
